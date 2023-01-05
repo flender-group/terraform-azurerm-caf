@@ -9,7 +9,7 @@ module "subnet" {
   private_dns              = var.private_dns
   vnet_resource_group_name = var.vnet.resource_group_name
   vnet_location            = var.vnet.location
-  subnet_id                = var.vnet.subnets[each.key].id
+  subnet_id                = try(var.vnet.subnets[each.key].id, var.virtual_subnets[each.key].id)
   remote_objects           = var.remote_objects
   base_tags                = var.base_tags
 }

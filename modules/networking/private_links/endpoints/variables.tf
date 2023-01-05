@@ -10,6 +10,7 @@ variable "private_endpoints" {}
 variable "private_dns" {}
 variable "remote_objects" {}
 variable "vnet" {}
+variable "virtual_subnets" {}
 variable "base_tags" {
   description = "Base tags for the resource to be inherited from the resource group."
   type        = map(any)
