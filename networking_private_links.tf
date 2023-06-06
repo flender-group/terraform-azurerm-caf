@@ -9,7 +9,7 @@ module "private_endpoints" {
   private_endpoints = var.networking.private_endpoints
   private_dns       = local.combined_objects_private_dns
   vnet              = try(local.combined_objects_networking[each.value.lz_key][each.value.vnet_key], local.combined_objects_networking[local.client_config.landingzone_key][each.value.vnet_key])
-
+  virtual_subnets   = try(local.combined_objects_virtual_subnets[each.value.lz_key],local.combined_objects_virtual_subnets[local.client_config.landingzone_key])
   base_tags = try(local.global_settings.inherit_tags, false) ? coalesce(
     try(local.resource_groups[each.value.resource_group_key].tags, null),
     try(local.resource_groups[each.value.lz_key][each.value.resource_group_key].tags, null),
