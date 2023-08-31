@@ -18,6 +18,10 @@ module "static_sites" {
   diagnostics         = local.combined_diagnostics
   tags                = try(each.value.tags, null)
   custom_domains      = try(each.value.custom_domains, {})
+  private_dns         = local.combined_objects_private_dns
+  private_endpoints   = try(each.value.private_endpoints, {})
+  vnets               = local.combined_objects_networking
+  virtual_subnets     = local.combined_objects_virtual_subnets
 }
 
 output "static_sites" {

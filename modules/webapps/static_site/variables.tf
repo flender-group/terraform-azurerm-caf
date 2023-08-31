@@ -63,3 +63,21 @@ variable "diagnostics" {
 variable "custom_domains" {
   default = {}
 }
+
+variable "vnets" {
+  default = {}
+}
+
+variable "private_endpoints" {
+  default = {}
+}
+
+variable "private_dns" {
+  default = {}
+}
+
+variable "virtual_subnets" {
+  description = "Map of virtual_subnets objects"
+  default     = {}
+  nullable    = false
+}
