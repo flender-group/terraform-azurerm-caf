@@ -16,7 +16,6 @@ data "azurerm_storage_account_sas" "installer" {
   count = can(var.settings.media_link) ? 0 : 1
 
   connection_string = data.azurerm_storage_account.installer.0.primary_connection_string
-  # container_name    = local.installer_storage_account.containers[var.settings.storage_accounts.container_key].name
   https_only        = true
 
   start  = time_rotating.sas[0].id
