@@ -84,7 +84,7 @@ resource "azurerm_gallery_application_version" "gallery_application_version" {
   dynamic "target_region" {
     for_each = try(var.settings.target_regions, {})
     content {
-      name                   = try(target_region.value.name, null)
+      name                   = coalesce(try(target_region.value.name, null), try(lookup(var.global_settings.regions, target_region.value.region_key, null), null))
       regional_replica_count = coalesce(try(target_region.value.regional_replica_count, null), try(var.settings.default_regional_replica_count, 1))
       storage_account_type   = coalesce(try(target_region.value.storage_account_type, null), try(var.settings.defult_storage_account_type, "Standard_LRS"))
     }
