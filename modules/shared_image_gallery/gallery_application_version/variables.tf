@@ -7,4 +7,5 @@ variable "base_tags" {
 }
 variable "gallery_application_id" {}
 variable "storage_accounts" {}
+variable "storage_containers" {}
 variable "location" {}

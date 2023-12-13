@@ -80,8 +80,8 @@ module "packer_build" {
 }
 
 module "gallery_application" {
-  source          = "./modules/shared_image_gallery/gallery_application"
-  for_each        = try(local.shared_services.gallery_application, {})
+  source   = "./modules/shared_image_gallery/gallery_application"
+  for_each = try(local.shared_services.gallery_application, {})
 
   base_tags       = local.global_settings.inherit_tags
   client_config   = local.client_config
@@ -95,16 +95,17 @@ module "gallery_application" {
 }
 
 module "gallery_application_version" {
-  source          = "./modules/shared_image_gallery/gallery_application_version"
-  for_each        = try(local.shared_services.gallery_application_version, {})
+  source   = "./modules/shared_image_gallery/gallery_application_version"
+  for_each = try(local.shared_services.gallery_application_version, {})
 
-  base_tags       = local.global_settings.inherit_tags
-  client_config   = local.client_config
-  global_settings = local.global_settings
-  gallery_application_id    = module.gallery_application[each.value.gallery_application.gallery_key].id
-  location        = module.gallery_application[each.value.gallery_application.gallery_key].location
-  storage_accounts = local.combined_objects_storage_accounts
-  settings        = each.value
+  base_tags              = local.global_settings.inherit_tags
+  client_config          = local.client_config
+  global_settings        = local.global_settings
+  gallery_application_id = module.gallery_application[each.value.gallery_application.gallery_key].id
+  location               = module.gallery_application[each.value.gallery_application.gallery_key].location
+  storage_accounts       = local.combined_objects_storage_accounts
+  storage_containers     = local.combined_objects_storage_containers
+  settings               = each.value
   depends_on = [
     module.shared_image_galleries,
     module.gallery_application

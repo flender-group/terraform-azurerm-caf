@@ -6,10 +6,10 @@ data "azurerm_storage_account" "installer" {
 }
 
 data "azurerm_storage_blob" "installer" {
-  count = can(var.settings.media_link) ? 0 : 1
-  name                   = var.settings.storage_accounts.blob_name
+  count                  = can(var.settings.media_link) ? 0 : 1
+  name                   = var.settings.blob_name
   storage_account_name   = local.installer_storage_account.name
-  storage_container_name = local.installer_storage_account.containers[var.settings.storage_accounts.container_key].name
+  storage_container_name = local.installer_storage_container
 }
 
 data "azurerm_storage_account_sas" "installer" {
@@ -35,7 +35,7 @@ data "azurerm_storage_account_sas" "installer" {
   }
 
   permissions {
-    read   = true
+    read    = true
     write   = false
     delete  = false
     list    = false
