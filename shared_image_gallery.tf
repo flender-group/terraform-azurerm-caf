@@ -111,3 +111,11 @@ module "gallery_application_version" {
     module.gallery_application
   ]
 }
+
+output "gallery_application" {
+  value = module.gallery_application
+}
+
+output "gallery_application_version" {
+  value = module.gallery_application_version
+}
