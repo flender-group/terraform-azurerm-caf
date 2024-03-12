@@ -399,6 +399,8 @@ locals {
     recovery_vaults                           = try(var.shared_services.recovery_vaults, {})
     shared_image_galleries                    = try(var.shared_services.shared_image_galleries, {})
     cost_anomaly_alert                        = try(var.shared_services.cost_anomaly_alert, {})
+    gallery_application                       = try(var.shared_services.gallery_application, {})
+    gallery_application_version               = try(var.shared_services.gallery_application_version, {})
   }
 
   storage = {
