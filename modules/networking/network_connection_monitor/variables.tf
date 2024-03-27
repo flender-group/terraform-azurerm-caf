@@ -32,7 +32,9 @@ variable "network_watcher_id" {
   default     = null
 }
 variable "combined_objects_log_analytics" {}
-
+variable "diagnostics" {
+  default = {}
+}
 
 variable "endpoint_objects" {
   description = "map of possible endpoint objects from caf"

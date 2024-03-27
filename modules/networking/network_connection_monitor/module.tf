@@ -126,11 +126,15 @@ locals {
     key => var.combined_objects_log_analytics[try(value.lz_key, var.client_config.landingzone_key)][value.key].id
     if try(value.key, null) != null
   }
+  workspace_id_from_diagnostics = {for key, value in var.diagnostics.log_analytics :
+    key => value.id
+    if try(value.diagnostic_log_destination_key, null) != null
+  }
   workspace_from_ids = { for key, value in var.settings.output_workspaces :
     key => value.id
     if try(value.id, null) != null
   }
-  workspace_ids       = concat(values(local.workspace_ids_from_keys), values(local.workspace_from_ids))
+  workspace_ids       = concat(values(local.workspace_ids_from_keys), values(local.workspace_from_ids), values(local.workspace_id_from_diagnostics))
   name                = var.network_watcher_name != null ? var.network_watcher_name : format("NetworkWatcher_%s", var.location)
   resource_group_name = var.network_watcher_resource_group_name != null ? var.network_watcher_resource_group_name : "NetworkWatcherRG"
 

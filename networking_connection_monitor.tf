@@ -15,6 +15,7 @@ module "network_connection_monitors" {
   network_watcher_name                = try(each.value.network_watcher_name, null)
 
   combined_objects_log_analytics = local.combined_objects_log_analytics
+  diagnostics                    = local.combined_diagnostics
 
   endpoint_objects = {
     virtual_subnets  = local.combined_objects_virtual_subnets
