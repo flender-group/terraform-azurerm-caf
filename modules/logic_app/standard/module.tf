@@ -17,6 +17,9 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
   storage_account_access_key = local.storage_account.primary_access_key
   https_only                 = lookup(var.settings, "https_only", null)
   app_settings               = local.app_settings
+  version                    = lookup(var.settings, "version", null)
+
+  app_settings = local.app_settings
 
   dynamic "site_config" {
     for_each = lookup(var.settings, "site_config", {}) != {} ? [1] : []
@@ -42,6 +45,14 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
       }
     }
   }
+  dynamic "identity" {
+    for_each = lookup(var.settings, "identity", {}) != {} ? [1] : []
+    content {
+      type = lookup(var.settings.identity, "type", null)
+      identity_ids = try(try(lookup(var.settings.identity, "identity_ids"), [try(var.managed_identities[var.client_config.landingzone_key][var.settings.identity.key].id, var.managed_identities[var.settings.identity.lz_key][var.settings.identity.key].id)]), null)
+    }
+  }
+
 }
 
 resource "azurerm_app_service_virtual_network_swift_connection" "vnet_config" {
