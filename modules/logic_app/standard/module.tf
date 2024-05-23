@@ -18,10 +18,10 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
   https_only                 = lookup(var.settings, "https_only", null)
   app_settings               = local.app_settings
   version                    = lookup(var.settings, "version", null)
-  virtual_network_subnet_id  = lookup(var.settings, "vnet_integration", null) != null ? can(var.settings.vnet_integration.subnet_id) ? var.settings.vnet_integration.subnet_id : try(var.vnets[try(var.settings.vnet_integration.lz_key, var.client_config.landingzone_key)][var.settings.vnet_integration.vnet_key].subnets[var.settings.vnet_integration.subnet_key].id,
+  virtual_network_subnet_id = lookup(var.settings, "vnet_integration", null) != null ? can(var.settings.vnet_integration.subnet_id) ? var.settings.vnet_integration.subnet_id : try(var.vnets[try(var.settings.vnet_integration.lz_key, var.client_config.landingzone_key)][var.settings.vnet_integration.vnet_key].subnets[var.settings.vnet_integration.subnet_key].id,
   try(var.virtual_subnets[var.client_config.landingzone_key][var.settings.vnet_integration.subnet_key].id, var.virtual_subnets[var.settings.vnet_integration.lz_key][var.settings.vnet_integration.subnet_key].id)) : null
   app_settings = local.app_settings
-
+  https_only   = lookup(var.settings, "https_only", null)
   dynamic "site_config" {
     for_each = lookup(var.settings, "site_config", {}) != {} ? [1] : []
 
@@ -49,8 +49,8 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
   dynamic "identity" {
     for_each = lookup(var.settings, "identity", {}) != {} ? [1] : []
     content {
-      type = lookup(var.settings.identity, "type", null)
-      identity_ids = try(try(lookup(var.settings.identity, "identity_ids"), [try(var.managed_identities[var.client_config.landingzone_key][var.settings.identity.key].id, var.managed_identities[var.settings.identity.lz_key][var.settings.identity.key].id)]), null)
+      type         = lookup(var.settings.identity, "type", null)
+      identity_ids = can(var.settings.identity.ids) ? var.settings.identity.ids : can(var.settings.identity.key) ? [var.managed_identities[try(var.settings.identity.lz_key, var.client_config.landingzone_key)][var.settings.identity.key].id] : null
     }
   }
 
