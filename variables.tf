@@ -453,4 +453,6 @@ variable "load_test" {
 variable "mi_federated_credentials" {
   default = {}
 }
-
+variable "invoice_sections" {
+  default = {}
+}

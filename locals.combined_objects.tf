@@ -87,6 +87,7 @@ locals {
   combined_objects_function_apps                                  = merge(tomap({ (local.client_config.landingzone_key) = module.function_apps }), lookup(var.remote_objects, "function_apps", {}))
   combined_objects_image_definitions                              = merge(tomap({ (local.client_config.landingzone_key) = module.image_definitions }), lookup(var.remote_objects, "image_definitions", {}))
   combined_objects_integration_service_environment                = merge(tomap({ (local.client_config.landingzone_key) = module.integration_service_environment }), lookup(var.remote_objects, "integration_service_environment", {}))
+  combined_objects_invoice_sections                               = merge(tomap({ (local.client_config.landingzone_key) = module.invoice_section }), try(var.remote_objects.invoice_sections, {}))
   combined_objects_iot_central_application                        = merge(tomap({ (local.client_config.landingzone_key) = module.iot_central_application }), lookup(var.remote_objects, "iot_central_application", {}))
   combined_objects_iot_dps_certificate                            = merge(tomap({ (local.client_config.landingzone_key) = module.iot_dps_certificate }), lookup(var.remote_objects, "iot_dps_certificate", {}))
   combined_objects_iot_dps_shared_access_policy                   = merge(tomap({ (local.client_config.landingzone_key) = module.iot_dps_shared_access_policy }), lookup(var.remote_objects, "iot_dps_shared_access_policy", {}))
