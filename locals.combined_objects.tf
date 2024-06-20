@@ -179,6 +179,7 @@ locals {
   combined_objects_cost_anomaly_alert = merge(tomap({ (local.client_config.landingzone_key) = module.cost_anomaly_alert }), try(var.remote_objects.cost_anomaly_alert, {}))
   combined_objects_gallery_application = merge(tomap({ (local.client_config.landingzone_key) = module.gallery_application }), try(var.remote_objects.gallery_application, {}))
   combined_objects_gallery_application_version = merge(tomap({ (local.client_config.landingzone_key) = module.gallery_application_version }), try(var.remote_objects.gallery_application_version, {}))
+  combined_objects_invoice_sections = merge(tomap({ (local.client_config.landingzone_key) = module.invoice_section }), try(var.remote_objects.invoice_sections, {}))
 
   combined_objects_subscriptions = merge(
     tomap(
