@@ -50,7 +50,7 @@ module "packer_service_principal" {
   depends_on = [
     module.shared_image_galleries,
     module.image_definitions,
-    azurerm_role_assignment.for,
+    #azurerm_role_assignment.for,
   ]
 }
 
