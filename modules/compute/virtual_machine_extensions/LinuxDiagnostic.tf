@@ -50,7 +50,7 @@ data "azurerm_storage_account_sas" "token" {
   start  = "2018-03-21T00:00:00Z"
   expiry = "2037-12-31T23:59:00Z"
 
-  permissions {
+permissions {
     read    = true
     write   = true
     delete  = true
@@ -59,5 +59,7 @@ data "azurerm_storage_account_sas" "token" {
     create  = true
     update  = true
     process = true
+    filter  = true
+    tag     = true
   }
 }
