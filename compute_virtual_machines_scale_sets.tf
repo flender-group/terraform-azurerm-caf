@@ -9,7 +9,7 @@ module "virtual_machine_scale_sets" {
     module.dynamic_keyvault_secrets,
     module.keyvault_access_policies_azuread_apps,
     module.keyvault_access_policies,
-    module.load_balancers,
+    #module.load_balancers,
     module.packer_build,
     module.packer_service_principal,
     #module.proximity_placement_groups,
