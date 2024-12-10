@@ -4,7 +4,7 @@
 
 resource "time_sleep" "delay" {
   depends_on = [azurerm_role_assignment.for_deferred]
-  #for_each   = local.storage.storage_account_blobs
+  for_each   = local.storage.storage_account_blobs
 
   create_duration = try(each.value.dealy.create_duration, "300s")
 }
