@@ -113,6 +113,8 @@ locals {
   combined_objects_logic_app_standard = merge(tomap({ (local.client_config.landingzone_key) = module.logic_app_standard }), try(var.remote_objects.logic_app_standard, {}))
   combined_objects_logic_app_workflow = merge(tomap({ (local.client_config.landingzone_key) = module.logic_app_workflow }), try(var.remote_objects.logic_app_workflow, {}))
   combined_objects_machine_learning = merge(tomap({ (local.client_config.landingzone_key) = module.machine_learning_workspaces }), try(var.remote_objects.machine_learning_workspaces, {}))
+  combined_objects_maintenance_assignment_virtual_machine = merge(tomap({ (local.client_config.landingzone_key) = module.maintenance_assignment_virtual_machine }), lookup(var.remote_objects, "maintenance_assignment_virtual_machine", {}))
+  combined_objects_maintenance_configuration = merge(tomap({ (local.client_config.landingzone_key) = module.maintenance_configuration }), lookup(var.remote_objects, "maintenance_configuration", {}))
   combined_objects_managed_identities = merge(tomap({ (local.client_config.landingzone_key) = module.managed_identities }), try(var.remote_objects.managed_identities, {}))
   combined_objects_monitor_action_groups = merge(tomap({ (local.client_config.landingzone_key) = module.monitor_action_groups }), try(var.remote_objects.monitor_action_groups, {}))
   combined_objects_mssql_databases = merge(tomap({ (local.client_config.landingzone_key) = module.mssql_databases }), try(var.remote_objects.mssql_databases, {}))
