@@ -1,6 +1,13 @@
 locals {
   # CAF landing zones can retrieve remote objects from a different landing zone and the
   # combined_objects will merge it with the local objects
+
+
+
+
+
+
+
   combined_objects_aadb2c_directory = merge(tomap({ (local.client_config.landingzone_key) = module.aadb2c_directory }), try(var.remote_objects.aadb2c_directory, {}))
   combined_objects_aks_clusters = merge(tomap({ (local.client_config.landingzone_key) = module.aks_clusters }), try(var.remote_objects.aks_clusters, {}), try(var.data_sources.aks_clusters, {}))
   combined_objects_api_management = merge(tomap({ (local.client_config.landingzone_key) = module.api_management }), try(var.remote_objects.api_management, {}), try(var.data_sources.api_management, {}))
@@ -110,6 +117,7 @@ locals {
   combined_objects_lb_backend_address_pool = merge(tomap({ (local.client_config.landingzone_key) = module.lb_backend_address_pool }), try(var.remote_objects.lb_backend_address_pool, {}))
   combined_objects_lb_probe = merge(tomap({ (local.client_config.landingzone_key) = module.lb_probe }), try(var.remote_objects.lb_probe, {}))
   combined_objects_load_balancers = merge(tomap({ (local.client_config.landingzone_key) = module.load_balancers }), try(var.remote_objects.load_balancers, {}))
+  combined_objects_load_test = merge(tomap({ (local.client_config.landingzone_key) = module.load_test }), lookup(var.remote_objects, "load_test", {}), lookup(var.data_sources, "load_test", {}))
   combined_objects_log_analytics = merge(tomap({ (local.client_config.landingzone_key) = module.log_analytics }), try(var.remote_objects.log_analytics, {}))
   combined_objects_logic_app_integration_account = merge(tomap({ (local.client_config.landingzone_key) = module.logic_app_integration_account }), try(var.remote_objects.logic_app_integration_account, {}))
   combined_objects_logic_app_standard = merge(tomap({ (local.client_config.landingzone_key) = module.logic_app_standard }), try(var.remote_objects.logic_app_standard, {}))
