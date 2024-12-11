@@ -126,6 +126,7 @@ locals {
   combined_objects_maintenance_assignment_virtual_machine = merge(tomap({ (local.client_config.landingzone_key) = module.maintenance_assignment_virtual_machine }), lookup(var.remote_objects, "maintenance_assignment_virtual_machine", {}))
   combined_objects_maintenance_configuration = merge(tomap({ (local.client_config.landingzone_key) = module.maintenance_configuration }), lookup(var.remote_objects, "maintenance_configuration", {}))
   combined_objects_managed_identities = merge(tomap({ (local.client_config.landingzone_key) = module.managed_identities }), try(var.remote_objects.managed_identities, {}))
+  combined_objects_maps_accounts = merge(tomap({ (local.client_config.landingzone_key) = module.maps_accounts }), lookup(var.remote_objects, "maps_accounts", {}))
   combined_objects_monitor_action_groups = merge(tomap({ (local.client_config.landingzone_key) = module.monitor_action_groups }), try(var.remote_objects.monitor_action_groups, {}))
   combined_objects_mssql_databases = merge(tomap({ (local.client_config.landingzone_key) = module.mssql_databases }), try(var.remote_objects.mssql_databases, {}))
   combined_objects_mssql_elastic_pools = merge(tomap({ (local.client_config.landingzone_key) = module.mssql_elastic_pools }), try(var.remote_objects.mssql_elastic_pools, {}))
