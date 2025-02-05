@@ -208,6 +208,8 @@ locals {
     signalr_services            = local.combined_objects_signalr_services
     storage_accounts            = local.combined_objects_storage_accounts
     networking                  = local.combined_objects_networking
+    azuread_applications        = local.combined_objects_azuread_applications
+    cosmosdb_sql_databases      = local.combined_objects_cosmosdb_sql_databases
   }
 
   dynamic_app_config_combined_objects = {
