@@ -18,7 +18,8 @@ resource "azurerm_cosmosdb_account" "cosmos_account" {
   tags                = local.tags
 
   free_tier_enabled                  = try(var.settings.free_tier_enabled, false)
-  ip_range_filter                    = try(var.settings.ip_range_filter, null)
+  # FixME: Latest azurerm release accepts list instead of comma separated string. 
+  ip_range_filter                    = try(format("%s", join(",", var.settings.ip_range_filter)), null)
   multiple_write_locations_enabled   = try(var.settings.multiple_write_locations_enabled, false)
   automatic_failover_enabled         = try(var.settings.automatic_failover_enabled, null)
   is_virtual_network_filter_enabled  = try(var.settings.is_virtual_network_filter_enabled, null)
@@ -82,6 +83,12 @@ resource "azurerm_cosmosdb_account" "cosmos_account" {
       storage_redundancy  = try(var.settings.backup.storage_redundancy, null)
     }
   }
+
+  dynamic "virtual_network_rule" {
+    for_each = try(var.settings.virtual_network_rule, {})
+    content {
+      id                                   = can(virtual_network_rule.value.subnet_id) ? virtual_network_rule.value.subnet_id : var.vnets[try(virtual_network_rule.value.lz_key, var.client_config.landingzone_key)][virtual_network_rule.value.vnet_key].subnets[virtual_network_rule.value.subnet_key].id
+      ignore_missing_vnet_service_endpoint = try(virtual_network_rule.value.ignore_missing_virtual_network_service_endpoint, null)
+    }
+  }
 }
-
-

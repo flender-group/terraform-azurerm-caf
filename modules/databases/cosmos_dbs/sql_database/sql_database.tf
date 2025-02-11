@@ -10,7 +10,10 @@ resource "azurerm_cosmosdb_sql_database" "database" {
   name                = try(var.settings.add_rnd_num, true) == false ? var.settings.name : format("%s-%s", var.settings.name, random_integer.ri.result)
   resource_group_name = var.resource_group_name
   account_name        = var.cosmosdb_account_name
-  throughput          = try(var.settings.throughput, null)
+  # Note : throughput and autoscale_settings conflict and autoscale_settings will take precedence if set
+  #throughput = try(var.settings.autoscale_settings, null) != null ? null : var.settings.throughput
+  # marking throughput optional to support serverless
+  throughput  = try(var.settings.throughput, null)
 
   # Note : throughput and autoscale_settings conflict and autoscale_settings will take precedence if set
   dynamic "autoscale_settings" {
@@ -31,8 +34,11 @@ resource "azurerm_cosmosdb_sql_container" "container" {
   account_name        = var.cosmosdb_account_name
   database_name       = azurerm_cosmosdb_sql_database.database.name
   partition_key_path  = each.value.partition_key_path
-  throughput          = try(each.value.throughput, null)
-  default_ttl         = try(each.value.default_ttl, -1)
+  # Note : throughput and autoscale_settings conflict and autoscale_settings will take precedence if set
+  #throughput  = try(each.value.autoscale_settings, null) != null ? null : each.value.throughput
+  # marking throughput optional to support serverless
+  throughput  = try(each.value.throughput, null)
+  default_ttl = try(each.value.default_ttl, -1)
 
   dynamic "unique_key" {
     for_each = try(each.value.unique_key, null) != null ? [each.value.unique_key] : []
