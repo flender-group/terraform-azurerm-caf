@@ -126,8 +126,8 @@ locals {
     key => var.combined_objects_log_analytics[try(value.lz_key, var.client_config.landingzone_key)][value.key].id
     if try(value.key, null) != null
   }
-  workspace_id_from_diagnostics = {for key, value in var.diagnostics.log_analytics :
-    key => value.id
+  workspace_id_from_diagnostics = {for key, value in var.settings.output_workspaces :
+    key => var.diagnostics.log_analytics[value.diagnostic_log_destination_key].id
     if try(value.diagnostic_log_destination_key, null) != null
   }
   workspace_from_ids = { for key, value in var.settings.output_workspaces :
