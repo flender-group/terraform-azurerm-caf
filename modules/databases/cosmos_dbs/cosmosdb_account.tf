@@ -83,16 +83,4 @@ resource "azurerm_cosmosdb_account" "cosmos_account" {
       }
     }
   }
-
-  dynamic "backup" {
-    for_each = lookup(var.settings, "backup", {}) == {} ? [] : [1]
-
-    content {
-      type                = var.settings.backup.type
-      tier                = try(var.settings.backup.tier, null)
-      interval_in_minutes = try(var.settings.backup.interval_in_minutes, null)
-      retention_in_hours  = try(var.settings.backup.retention_in_hours, null)
-      storage_redundancy  = try(var.settings.backup.storage_redundancy, null)
-    }
-  }
 }
