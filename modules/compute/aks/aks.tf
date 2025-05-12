@@ -330,6 +330,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
       docker_bridge_cidr  = try(network_profile.value.docker_bridge_cidr, null)
       outbound_type       = try(network_profile.value.outbound_type, null)
       pod_cidr            = try(network_profile.value.pod_cidr, null)
+      pod_cidrs           = try(network_profile.value.pod_cidrs, null)
       service_cidr        = try(network_profile.value.service_cidr, null)
       service_cidrs       = try(network_profile.value.network_cidrs, null)
       load_balancer_sku   = try(network_profile.value.load_balancer_sku, null)

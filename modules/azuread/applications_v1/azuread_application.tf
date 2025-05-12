@@ -138,3 +138,15 @@ resource "random_uuid" "oauth2_permission_scopes" {
     if try(value.id, null) == null
   }
 }
+
+resource "azuread_application_pre_authorized" "pre_authorized_client" {
+  for_each = try(var.settings.api.pre_authorized_clients, {})
+
+  application_id       = azuread_application.app.id
+  authorized_client_id = each.value.authorized_client_id
+  permission_ids = [
+    for key, scope in try(var.settings.api.oauth2_permission_scopes, {}) :
+    try(scope.id, random_uuid.oauth2_permission_scopes[key].id)
+    if contains(each.value.selected_scopes, scope.value)
+  ]
+}

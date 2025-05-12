@@ -259,7 +259,7 @@ resource "azurecaf_name" "route_tables" {
   prefixes      = local.global_settings.prefixes
   random_length = local.global_settings.random_length
   clean_input   = true
-  passthrough   = local.global_settings.passthrough
+  passthrough   = can( each.value.passthrough ) ? true : local.global_settings.passthrough
   use_slug      = local.global_settings.use_slug
 }
 

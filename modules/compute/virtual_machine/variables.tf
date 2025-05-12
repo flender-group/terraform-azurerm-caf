@@ -27,6 +27,7 @@ variable "settings" {}
 
 variable "vnets" {}
 
+
 # Security
 variable "public_key_pem_file" {
   default     = ""

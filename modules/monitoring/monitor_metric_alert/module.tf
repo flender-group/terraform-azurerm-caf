@@ -13,7 +13,7 @@ resource "azurerm_monitor_metric_alert" "mma" {
   resource_group_name = var.resource_group_name
   scopes = try(flatten([
     for key, value in var.settings.scopes : coalesce(
-      try(var.remote_objects[value.resource_type][value.lz_key][value.lz_key][value.key].id, null),
+      try(var.remote_objects[value.resource_type][value.lz_key][value.key].id, null),
       try(var.remote_objects[value.resource_type][var.client_config.landingzone_key][value.key].id, null),
       try(value.id, null),
       []
@@ -28,7 +28,7 @@ resource "azurerm_monitor_metric_alert" "mma" {
       operator         = try(criteria.value.operator, null)
       threshold        = try(criteria.value.threshold, null)
       dynamic "dimension" {
-        for_each = try(var.settings.dimension, null) != null ? [var.settings.dimension] : []
+        for_each = try(criteria.value.dimension, {})
         content {
           name     = try(dimension.value.name, null)
           operator = try(dimension.value.operator, null)
@@ -47,7 +47,7 @@ resource "azurerm_monitor_metric_alert" "mma" {
       operator          = try(dynamic_criteria.value.operator, null)
       alert_sensitivity = try(dynamic_criteria.value.alert_sensitivity, null)
       dynamic "dimension" {
-        for_each = try(var.settings.dimension, null) != null ? [var.settings.dimension] : []
+        for_each = try(dynamic_criteria.value.dimension, {})
         content {
           name     = try(dimension.value.name, null)
           operator = try(dimension.value.operator, null)

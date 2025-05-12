@@ -83,7 +83,16 @@ resource "azurerm_web_application_firewall_policy" "wafpolicy" {
             for_each = try(managed_rule_set.value.rule_group_override, {})
             content {
               rule_group_name = rule_group_override.value.rule_group_name
-              disabled_rules  = try(rule_group_override.value.disabled_rules, null)
+              dynamic "rule" {
+                for_each = {
+                  for key, value in try(rule_group_override.value.rules, {}) : key => value
+                }
+                content {
+                  id = rule.value.id
+                  enabled = try(rule.value.enabled, null)
+                  action = try(rule.value.action, null)
+                }
+              }
             }
           }
         }

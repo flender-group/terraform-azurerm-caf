@@ -438,6 +438,9 @@ variable "preview_features" {
 variable "powerbi_embedded" {
   default = {}
 }
+variable "cost_anomaly_alert" {
+  default = {}
+}
 variable "maintenance" {
   default = {}
 }
@@ -450,3 +453,9 @@ variable "load_test" {
   default     = {}
 }
 
+variable "mi_federated_credentials" {
+  default = {}
+}
+variable "invoice_sections" {
+  default = {}
+}

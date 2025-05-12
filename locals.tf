@@ -25,6 +25,7 @@ locals {
     azuread_service_principal_passwords = try(var.azuread.azuread_service_principal_passwords, {})
     azuread_service_principals          = try(var.azuread.azuread_service_principals, {})
     azuread_users                       = try(var.azuread.azuread_users, {})
+    azuread_federated_credentials       = try(var.azuread.azuread_federated_credentials, {})
   }
 
   client_config = var.client_config == {} ? {
@@ -207,6 +208,8 @@ locals {
     signalr_services            = local.combined_objects_signalr_services
     storage_accounts            = local.combined_objects_storage_accounts
     networking                  = local.combined_objects_networking
+    azuread_applications        = local.combined_objects_azuread_applications
+    cosmosdb_sql_databases      = local.combined_objects_cosmosdb_sql_databases
   }
 
   dynamic_app_config_combined_objects = {
@@ -257,18 +260,18 @@ locals {
     maps_accounts = try(var.maps.maps_accounts, {})
   }
   messaging = {
-    signalr_services                    = try(var.messaging.signalr_services, {})
-    servicebus_namespaces               = try(var.messaging.servicebus_namespaces, {})
-    servicebus_queues                   = try(var.messaging.servicebus_queues, {})
-    servicebus_topics                   = try(var.messaging.servicebus_topics, {})
-    eventgrid_domain                    = try(var.messaging.eventgrid_domain, {})
-    eventgrid_topic                     = try(var.messaging.eventgrid_topic, {})
-    eventgrid_event_subscription        = try(var.messaging.eventgrid_event_subscription, {})
-    eventgrid_domain_topic              = try(var.messaging.eventgrid_domain_topic, {})
-    eventgrid_system_topic              = try(var.messaging.eventgrid_system_topic, {})
-    eventgrid_system_event_subscription = try(var.messaging.eventgrid_system_event_subscription, {})
-    web_pubsubs                         = try(var.messaging.web_pubsubs, {})
-    web_pubsub_hubs                     = try(var.messaging.web_pubsub_hubs, {})
+    signalr_services                          = try(var.messaging.signalr_services, {})
+    servicebus_namespaces                     = try(var.messaging.servicebus_namespaces, {})
+    servicebus_queues                         = try(var.messaging.servicebus_queues, {})
+    servicebus_topics                         = try(var.messaging.servicebus_topics, {})
+    eventgrid_domain                          = try(var.messaging.eventgrid_domain, {})
+    eventgrid_topic                           = try(var.messaging.eventgrid_topic, {})
+    eventgrid_event_subscription              = try(var.messaging.eventgrid_event_subscription, {})
+    eventgrid_domain_topic                    = try(var.messaging.eventgrid_domain_topic, {})
+    eventgrid_system_topic                    = try(var.messaging.eventgrid_system_topic, {})
+    eventgrid_system_topic_event_subscription = try(var.messaging.eventgrid_system_topic_event_subscription, {})
+    web_pubsubs                               = try(var.messaging.web_pubsubs, {})
+    web_pubsub_hubs                           = try(var.messaging.web_pubsub_hubs, {})
   }
 
   networking = {
@@ -311,6 +314,7 @@ locals {
     load_balancers                                          = try(var.networking.load_balancers, {})
     local_network_gateways                                  = try(var.networking.local_network_gateways, {})
     nat_gateways                                            = try(var.networking.nat_gateways, {})
+    network_connection_monitors                             = try(var.networking.network_connection_monitors, {})
     network_interface_backend_address_pool_association      = try(var.networking.network_interface_backend_address_pool_association, {})
     network_profiles                                        = try(var.networking.network_profiles, {})
     network_security_group_definition                       = try(var.networking.network_security_group_definition, {})
@@ -396,6 +400,9 @@ locals {
     packer_build                              = try(var.shared_services.packer_build, {})
     recovery_vaults                           = try(var.shared_services.recovery_vaults, {})
     shared_image_galleries                    = try(var.shared_services.shared_image_galleries, {})
+    cost_anomaly_alert                        = try(var.shared_services.cost_anomaly_alert, {})
+    gallery_application                       = try(var.shared_services.gallery_application, {})
+    gallery_application_version               = try(var.shared_services.gallery_application_version, {})
   }
 
   storage = {

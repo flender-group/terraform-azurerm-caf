@@ -1,6 +1,7 @@
 module "storage_containers" {
   source     = "./modules/storage_account/container/"
-  depends_on = [time_sleep.azurerm_role_assignment_for]
+  # triggers cyclic dependency
+  #depends_on = [time_sleep.azurerm_role_assignment_for]
   for_each   = local.storage.storage_containers
 
   settings             = each.value
