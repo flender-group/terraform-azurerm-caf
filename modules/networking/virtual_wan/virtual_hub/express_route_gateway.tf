@@ -16,12 +16,13 @@ resource "azurecaf_name" "er_gateway" {
 resource "azurerm_express_route_gateway" "er_gateway" {
   count = try(var.virtual_hub_config.deploy_er, false) ? 1 : 0
 
-  name                = azurecaf_name.er_gateway.0.result
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  tags                = local.tags
-  virtual_hub_id      = azurerm_virtual_hub.vwan_hub.id
-  scale_units         = var.virtual_hub_config.er_config.scale_units
+  name                          = azurecaf_name.er_gateway.0.result
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  tags                          = local.tags
+  allow_non_virtual_wan_traffic = try(var.virtual_hub_config.er_config.allow_non_virtual_wan_traffic, null)
+  virtual_hub_id                = azurerm_virtual_hub.vwan_hub.id
+  scale_units                   = var.virtual_hub_config.er_config.scale_units
 
   timeouts {
     create = "60m"
