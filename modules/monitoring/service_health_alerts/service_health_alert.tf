@@ -55,6 +55,7 @@ resource "azurerm_monitor_action_group" "ag1" {
     content {
       name        = webhook_receiver.value.name
       service_uri = webhook_receiver.value.service_uri
+      use_common_alert_schema = try(webhook_receiver.value.use_common_alert_schema, false)
     }
   }
 
