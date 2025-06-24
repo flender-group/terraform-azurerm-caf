@@ -14,7 +14,7 @@ resource "azuread_group" "group" {
   dynamic "dynamic_membership" {
     for_each = try(var.azuread_dynamic_groups.member_groups, null) == null ? [] : [var.azuread_dynamic_groups.member_groups]
     content {
-      rule = "user.memberOf -any (group.objectId -in [\"${join(",", local.member_group_object_ids)}\"])"
+      rule = "user.memberOf -any (group.objectId -in ${jsonencode(local.member_group_object_ids)})"
       enabled = dynamic_membership.value.enabled
     }
   }
@@ -22,7 +22,7 @@ resource "azuread_group" "group" {
   dynamic "dynamic_membership" {
     for_each = try(var.azuread_dynamic_groups.member_users, null) == null ? [] : [var.azuread_dynamic_groups.member_users]
     content {
-      rule = "user.memberOf -any (group.objectId -in [\"${join(",", local.member_user_object_ids)}\"])"
+      rule = "user.memberOf -any (group.objectId -in ${jsonencode(local.member_user_object_ids)})"
       enabled = dynamic_membership.value.enabled
     }
   }
