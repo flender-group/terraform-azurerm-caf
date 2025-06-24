@@ -27,6 +27,7 @@ locals {
     azuread_users                       = try(var.azuread.azuread_users, {})
     azuread_federated_credentials       = try(var.azuread.azuread_federated_credentials, {})
     azuread_app_role_assignments        = try(var.azuread.azuread_app_role_assignments, {})
+    azuread_dynamic_groups              = try(var.azuread.azuread_dynamic_groups, {})
   }
 
   client_config = var.client_config == {} ? {
