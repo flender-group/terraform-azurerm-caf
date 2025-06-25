@@ -1,4 +1,4 @@
-resource "azuread_group" "group" {
+resource "azuread_group" "dynamic_group" {
 
   administrative_unit_ids = can(var.azuread_dynamic_groups.administrative_unit_ids) || can(var.azuread_dynamic_groups.administrative_units) == false ? try(var.azuread_dynamic_groups.administrative_unit_ids, null) : local.administrative_unit_ids
   assignable_to_role      = try(var.azuread_dynamic_groups.assignable_to_role, null)

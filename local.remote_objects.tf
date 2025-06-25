@@ -23,6 +23,7 @@ locals {
     azure_container_registries                     = try(local.combined_objects_azure_container_registries, null)
     azuread_applications                           = try(local.combined_objects_azuread_applications, null)
     azuread_apps                                   = try(local.combined_objects_azuread_apps, null)
+    azuread_dynamic_groups                         = try(local.combined_objects_azuread_dynamic_groups, null)
     azuread_groups                                 = try(local.combined_objects_azuread_groups, null)
     azuread_service_principals                     = try(local.combined_objects_azuread_service_principals, null)
     azuread_service_principal_passwords            = try(local.combined_objects_azuread_service_principal_passwords, null)
