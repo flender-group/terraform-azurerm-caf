@@ -126,6 +126,7 @@ locals {
     azure_container_registries                 = local.combined_objects_azure_container_registries
     azuread_applications                       = local.combined_objects_azuread_applications
     azuread_apps                               = local.combined_objects_azuread_apps
+    azuread_dynamic_groups                     = local.combined_objects_azuread_dynamic_groups
     azuread_groups                             = local.combined_objects_azuread_groups
     azuread_service_principals                 = local.combined_objects_azuread_service_principals
     azurerm_firewalls                          = local.combined_objects_azurerm_firewalls
