@@ -344,6 +344,7 @@ locals {
     virtual_hub_er_gateway_connections                      = try(var.networking.virtual_hub_er_gateway_connections, {})
     virtual_hub_route_table_routes                          = try(var.networking.virtual_hub_route_table_routes, {})
     virtual_hub_route_tables                                = try(var.networking.virtual_hub_route_tables, {})
+    virtual_hub_routing_intents                             = try(var.networking.virtual_hub_routing_intents, {})
     virtual_hubs                                            = try(var.networking.virtual_hubs, {})
     virtual_network_gateway_connections                     = try(var.networking.virtual_network_gateway_connections, {})
     virtual_network_gateways                                = try(var.networking.virtual_network_gateways, {})
