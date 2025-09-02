@@ -106,7 +106,8 @@ locals {
     storage_containers         = local.combined_objects_storage_containers
     azuread_groups             = local.combined_objects_azuread_groups
     azuread_service_principals = local.combined_objects_azuread_service_principals
-    storage_account_file_shares = local.combined_objects_storage_account_file_shares
+    logged_in                  = local.logged_in
+    managed_identities         = local.combined_objects_managed_identities
   }
 
 
