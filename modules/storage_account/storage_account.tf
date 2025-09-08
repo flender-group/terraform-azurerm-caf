@@ -18,12 +18,12 @@ resource "azurecaf_name" "stg" {
 # Ref : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account
 
 resource "azurerm_storage_account" "stg" {
-  name                              = azurecaf_name.stg.result
-  account_tier                      = try(var.storage_account.account_tier, "Standard")
-  account_replication_type          = try(var.storage_account.account_replication_type, "LRS")
-  account_kind                      = try(var.storage_account.account_kind, "StorageV2")
-  access_tier                       = contains(["BlobStorage", "FileStorage", "StorageV2"], try(var.storage_account.account_kind, "StorageV2")) ? try(var.storage_account.access_tier, "Hot") : null
-  allow_nested_items_to_be_public   = try(var.storage_account.allow_nested_items_to_be_public, var.storage_account.allow_blob_public_access, false)
+  name                            = azurecaf_name.stg.result
+  account_tier                    = try(var.storage_account.account_tier, "Standard")
+  account_replication_type        = try(var.storage_account.account_replication_type, "LRS")
+  account_kind                    = try(var.storage_account.account_kind, "StorageV2")
+  access_tier                     = contains(["BlobStorage", "FileStorage", "StorageV2"], try(var.storage_account.account_kind, "StorageV2")) ? try(var.storage_account.access_tier, "Hot") : null
+  allow_nested_items_to_be_public = try(var.storage_account.allow_nested_items_to_be_public, var.storage_account.allow_blob_public_access, false)
   # Falsely defaults to true in this version 3.114.0 https://github.com/hashicorp/terraform-provider-azurerm/pull/26962
   cross_tenant_replication_enabled  = try(var.storage_account.cross_tenant_replication_enabled, false)
   edge_zone                         = try(var.storage_account.edge_zone, null)
@@ -251,7 +251,7 @@ resource "azurerm_storage_account" "stg" {
 
   lifecycle {
     ignore_changes = [
-      location, resource_group_name
+      location, resource_group_name, customer_managed_key
     ]
   }
 }
