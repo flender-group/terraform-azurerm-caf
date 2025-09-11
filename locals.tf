@@ -295,6 +295,7 @@ locals {
     ddos_services                                           = try(var.networking.ddos_services, {})
     dns_zone_records                                        = try(var.networking.dns_zone_records, {})
     dns_zones                                               = try(var.networking.dns_zones, {})
+    dns_zone_delegations                                    = try(var.networking.dns_zone_delegations, {})
     domain_name_registrations                               = try(var.networking.domain_name_registrations, {})
     express_route_circuit_authorizations                    = try(var.networking.express_route_circuit_authorizations, {})
     express_route_circuit_peerings                          = try(var.networking.express_route_circuit_peerings, {})

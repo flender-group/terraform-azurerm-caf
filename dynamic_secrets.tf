@@ -19,8 +19,8 @@ module "dynamic_keyvault_secrets" {
 
 
 output "dynamic_keyvault_secrets" {
-  value = { for key, value in try(var.security.dynamic_keyvault_secrets, {}):
-    key =>  module.dynamic_keyvault_secrets[key].secrets
+  value = { for key, value in try(var.security.dynamic_keyvault_secrets, {}) :
+    key => module.dynamic_keyvault_secrets[key].secrets
   }
 }
 # Output looks different then probably expected, its resource_type --> keyvault_key --> secret_key

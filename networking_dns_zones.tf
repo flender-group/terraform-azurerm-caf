@@ -41,3 +41,12 @@ module "dns_zone_records" {
 output "dns_zone_records" {
   value = module.dns_zone_records
 }
+
+module "dns_zone_delegations" {
+  source         = "./modules/networking/dns_zone/dns_delegation"
+  for_each       = try(local.networking.dns_zone_delegations, {})
+  depends_on     = [module.dns_zones]
+  parent_zone_id = local.combined_objects_dns_zones[try(each.value.parent_zone.lz_key, local.client_config.landingzone_key)][each.value.parent_zone.key].id
+  ns_records     = local.combined_objects_dns_zones[try(each.value.zone.lz_key, local.client_config.landingzone_key)][each.value.zone.key].name_servers
+  settings       = each.value
+}
