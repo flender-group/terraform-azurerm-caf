@@ -43,3 +43,8 @@ output "default_route_table_id" {
   description = "Resource ID of the Virtual Hub Default Route Table"
   value       = azurerm_virtual_hub.vwan_hub.default_route_table_id
 }
+
+output "security_partner_provider" {
+  description = "Security Partner Provider Configuration"
+  value       = azurerm_virtual_hub_security_partner_provider.spp
+}
