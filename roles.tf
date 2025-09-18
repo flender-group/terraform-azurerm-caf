@@ -144,6 +144,7 @@ locals {
     iot_hub_dps                                = local.combined_objects_iot_hub_dps
     keyvaults                                  = local.combined_objects_keyvaults
     kusto_clusters                             = local.combined_objects_kusto_clusters
+    linux_web_apps                             = local.combined_objects_linux_web_apps
     log_analytics                              = local.current_objects_log_analytics
     logged_in                                  = local.logged_in
     machine_learning_compute_instance          = module.machine_learning_compute_instance
@@ -177,6 +178,7 @@ locals {
     synapse_workspaces                         = local.combined_objects_synapse_workspaces
     virtual_machine_scale_sets                 = local.combined_objects_virtual_machine_scale_sets
     virtual_subnets                            = local.combined_objects_virtual_subnets
+    windows_web_apps                           = local.combined_objects_windows_web_apps
     wvd_application_groups                     = local.combined_objects_wvd_application_groups
     wvd_applications                           = local.combined_objects_wvd_applications
     wvd_host_pools                             = local.combined_objects_wvd_host_pools

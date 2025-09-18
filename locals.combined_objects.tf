@@ -112,6 +112,7 @@ locals {
   combined_objects_lb                                             = merge(tomap({ (local.client_config.landingzone_key) = module.lb }), try(var.remote_objects.lb, {}), try(var.data_sources.load_balancers, {}))
   combined_objects_lb_backend_address_pool                        = merge(tomap({ (local.client_config.landingzone_key) = module.lb_backend_address_pool }), try(var.remote_objects.lb_backend_address_pool, {}))
   combined_objects_lb_probe                                       = merge(tomap({ (local.client_config.landingzone_key) = module.lb_probe }), try(var.remote_objects.lb_probe, {}))
+  combined_objects_linux_web_apps                                  = merge(tomap({ (local.client_config.landingzone_key) = module.linux_web_app }), try(var.remote_objects.linux_web_apps, {}))
   combined_objects_load_balancers                                 = merge(tomap({ (local.client_config.landingzone_key) = module.load_balancers }), try(var.remote_objects.load_balancers, {}))
   combined_objects_load_test                                      = merge(tomap({ (local.client_config.landingzone_key) = module.load_test }), lookup(var.remote_objects, "load_test", {}), lookup(var.data_sources, "load_test", {}))
   combined_objects_log_analytics                                  = merge(tomap({ (local.client_config.landingzone_key) = module.log_analytics }), try(var.remote_objects.log_analytics, {}))
@@ -188,6 +189,7 @@ locals {
   combined_objects_vpn_sites                                      = merge(tomap({ (local.client_config.landingzone_key) = module.vpn_sites }), try(var.remote_objects.vpn_sites, {}))
   combined_objects_web_pubsub_hubs                                = merge(tomap({ (local.client_config.landingzone_key) = module.web_pubsub_hubs }), try(var.remote_objects.web_pubsub_hubs, {}))
   combined_objects_web_pubsubs                                    = merge(tomap({ (local.client_config.landingzone_key) = module.web_pubsubs }), try(var.remote_objects.web_pubsubs, {}))
+  combined_objects_windows_web_apps                                  = merge(tomap({ (local.client_config.landingzone_key) = module.windows_web_app }), try(var.remote_objects.windows_web_apps, {}))
   combined_objects_wvd_application_groups                         = merge(tomap({ (local.client_config.landingzone_key) = module.wvd_application_groups }), try(var.remote_objects.wvd_application_groups, {}))
   combined_objects_wvd_applications                               = merge(tomap({ (local.client_config.landingzone_key) = module.wvd_applications }), try(var.remote_objects.wvd_applications, {}))
   combined_objects_wvd_host_pools                                 = merge(tomap({ (local.client_config.landingzone_key) = module.wvd_host_pools }), try(var.remote_objects.wvd_host_pools, {}))
@@ -207,4 +209,3 @@ locals {
   )
 
 }
- 
