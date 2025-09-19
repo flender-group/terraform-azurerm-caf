@@ -24,8 +24,6 @@ locals {
   location            = coalesce(var.location, var.resource_group.location)
   resource_group_name = coalesce(var.resource_group_name, var.resource_group.name)
 
-  arm_filename = "${path.module}/arm_site_config.json"
-
   app_settings = merge(
     var.application_insight == null ? {} : {
       "APPINSIGHTS_INSTRUMENTATIONKEY"             = var.application_insight.instrumentation_key,
