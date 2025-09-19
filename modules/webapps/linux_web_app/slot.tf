@@ -24,17 +24,17 @@ resource "azurerm_linux_web_app_slot" "slots" {
 
   site_config {
     # numberOfWorkers           = lookup(each.value.site_config, "numberOfWorkers", 1)  # defined in ARM template below
-    always_on                = lookup(each.value.site_config, "always_on", false)
+    always_on                = lookup(each.value.site_config, "always_on", null)
     app_command_line         = lookup(each.value.site_config, "app_command_line", null)
     default_documents        = lookup(each.value.site_config, "default_documents", null)
-    ftps_state               = lookup(each.value.site_config, "ftps_state", "FtpsOnly")
-    http2_enabled            = lookup(each.value.site_config, "http2_enabled", false)
+    ftps_state               = lookup(each.value.site_config, "ftps_state", null)
+    http2_enabled            = lookup(each.value.site_config, "http2_enabled", null)
     local_mysql_enabled      = lookup(each.value.site_config, "local_mysql_enabled", null)
     linux_fx_version         = lookup(each.value.site_config, "linux_fx_version", null)
     managed_pipeline_mode    = lookup(each.value.site_config, "managed_pipeline_mode", null)
     remote_debugging_enabled = lookup(each.value.site_config, "remote_debugging_enabled", null)
     remote_debugging_version = lookup(each.value.site_config, "remote_debugging_version", null)
-    websockets_enabled       = lookup(each.value.site_config, "websockets_enabled", false)
+    websockets_enabled       = lookup(each.value.site_config, "websockets_enabled", null)
     scm_type                 = lookup(each.value.site_config, "scm_type", null)
 
     application_stack {
@@ -109,7 +109,7 @@ resource "azurerm_linux_web_app_slot" "slots" {
     for_each = lookup(each.value, "auth_settings", {}) != {} ? [1] : []
 
     content {
-      enabled                        = lookup(each.value.auth_settings, "enabled", false)
+      enabled                        = lookup(each.value.auth_settings, "enabled", null)
       allowed_external_redirect_urls = lookup(each.value.auth_settings, "allowed_external_redirect_urls", null)
       default_provider               = lookup(each.value.auth_settings, "default_provider", null)
       issuer                         = lookup(each.value.auth_settings, "issuer", null)
@@ -173,7 +173,7 @@ resource "azurerm_linux_web_app_slot" "slots" {
     for_each = lookup(each.value, "auth_settings_v2", {}) != {} ? [1] : []
 
     content {
-      auth_enabled           = lookup(each.value.auth_settings_v2, "enabled", false)
+      auth_enabled           = lookup(each.value.auth_settings_v2, "enabled", null)
       config_file_path       = lookup(each.value.auth_settings_v2, "config_file_path", null)
       default_provider       = lookup(each.value.auth_settings_v2, "default_provider", null)
       runtime_version        = lookup(each.value.auth_settings_v2, "runtime_version", null)

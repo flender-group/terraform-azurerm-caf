@@ -32,12 +32,12 @@ resource "azurerm_linux_web_app" "app_service" {
   }
 
   site_config {
-    always_on               = try(var.settings.site_config.always_on, true)
-    minimum_tls_version     = try(var.settings.site_config.minimum_tls_version, "1.2")
-    ftps_state              = try(var.settings.site_config.ftps_state, "FtpsOnly")
+    always_on               = try(var.settings.site_config.always_on, null)
+    minimum_tls_version     = try(var.settings.site_config.minimum_tls_version, null)
+    ftps_state              = try(var.settings.site_config.ftps_state, null)
     health_check_path       = try(var.settings.site_config.health_check_path, null)
-    http2_enabled           = try(var.settings.site_config.http2_enabled, true)
-    scm_minimum_tls_version = try(var.settings.site_config.scm_minimum_tls_version, "1.2")
+    http2_enabled           = try(var.settings.site_config.http2_enabled, null)
+    scm_minimum_tls_version = try(var.settings.site_config.scm_minimum_tls_version, null)
     vnet_route_all_enabled  = try(var.settings.site_config.vnet_route_all_enabled, null)
     websockets_enabled      = try(var.settings.site_config.websockets_enabled, null)
 
@@ -103,7 +103,7 @@ resource "azurerm_linux_web_app" "app_service" {
     for_each = lookup(var.settings, "auth_settings", {}) != {} ? [1] : []
 
     content {
-      enabled                        = lookup(var.settings.auth_settings, "enabled", false)
+      enabled                        = lookup(var.settings.auth_settings, "enabled", null)
       allowed_external_redirect_urls = lookup(var.settings.auth_settings, "allowed_external_redirect_urls", null)
       default_provider               = lookup(var.settings.auth_settings, "default_provider", null)
       issuer                         = lookup(var.settings.auth_settings, "issuer", null)

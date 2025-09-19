@@ -32,24 +32,24 @@ resource "azurerm_windows_web_app" "app_service" {
   }
 
   site_config {
-    always_on                         = lookup(var.settings.site_config, "always_on", false)
+    always_on                         = lookup(var.settings.site_config, "always_on", null)
     app_command_line                  = lookup(var.settings.site_config, "app_command_line", null)
     auto_heal_enabled                 = lookup(var.settings.site_config, "auto_heal_enabled", null)
     default_documents                 = lookup(var.settings.site_config, "default_documents", null)
     ftps_state                        = lookup(var.settings.site_config, "ftps_state", "FtpsOnly")
     health_check_path                 = lookup(var.settings.site_config, "health_check_path", null)
     health_check_eviction_time_in_min = lookup(var.settings.site_config, "health_check_eviction_time_in_min", null)
-    http2_enabled                     = lookup(var.settings.site_config, "http2_enabled", false)
+    http2_enabled                     = lookup(var.settings.site_config, "http2_enabled", null)
     load_balancing_mode               = lookup(var.settings.site_config, "load_balancing_mode", null)
     local_mysql_enabled               = lookup(var.settings.site_config, "local_mysql_enabled", null)
-    managed_pipeline_mode             = lookup(var.settings.site_config, "managed_pipeline_mode", "Integrated")
+    managed_pipeline_mode             = lookup(var.settings.site_config, "managed_pipeline_mode", null)
     minimum_tls_version               = lookup(var.settings.site_config, "minimum_tls_version", null)
     windows_fx_version                = lookup(var.settings.site_config, "windows_fx_version", null)
     remote_debugging_enabled          = lookup(var.settings.site_config, "remote_debugging_enabled", null)
     remote_debugging_version          = lookup(var.settings.site_config, "remote_debugging_version", null)
     use_32_bit_worker                 = lookup(var.settings.site_config, "use_32_bit_worker", null)
     vnet_route_all_enabled            = lookup(var.settings.site_config, "vnet_route_all_enabled", null)
-    websockets_enabled                = lookup(var.settings.site_config, "websockets_enabled", false)
+    websockets_enabled                = lookup(var.settings.site_config, "websockets_enabled", null)
     worker_count                      = lookup(var.settings.site_config, "worker_count", null)
     scm_type                          = lookup(var.settings.site_config, "scm_type", null)
 
@@ -186,7 +186,7 @@ resource "azurerm_windows_web_app" "app_service" {
     for_each = lookup(var.settings, "auth_settings", {}) != {} ? [1] : []
 
     content {
-      enabled                        = lookup(var.settings.auth_settings, "enabled", false)
+      enabled                        = lookup(var.settings.auth_settings, "enabled", null)
       allowed_external_redirect_urls = lookup(var.settings.auth_settings, "allowed_external_redirect_urls", null)
       default_provider               = lookup(var.settings.auth_settings, "default_provider", null)
       issuer                         = lookup(var.settings.auth_settings, "issuer", null)
