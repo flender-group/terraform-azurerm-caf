@@ -23,7 +23,6 @@ resource "azurerm_linux_web_app_slot" "slots" {
   key_vault_reference_identity_id = can(each.value.key_vault_reference_identity.key) ? var.combined_objects.managed_identities[try(each.value.key_vault_reference_identity.lz_key, var.client_config.landingzone_key)][each.value.key_vault_reference_identity.key].id : try(each.value.key_vault_reference_identity.id, null)
 
   site_config {
-    # numberOfWorkers           = lookup(each.value.site_config, "numberOfWorkers", 1)  # defined in ARM template below
     always_on                = lookup(each.value.site_config, "always_on", null)
     app_command_line         = lookup(each.value.site_config, "app_command_line", null)
     default_documents        = lookup(each.value.site_config, "default_documents", null)
