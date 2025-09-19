@@ -43,19 +43,19 @@ resource "azurerm_linux_web_app" "app_service" {
 
     # Linux runtime stack
     application_stack {
-      docker_image_name        = try(each.value.site_config.application_stack.docker_image_name, null)
-      docker_image_tag         = try(each.value.site_config.application_stack.docker_image_tag, null)
-      docker_registry_url      = try(each.value.site_config.application_stack.docker_registry_url, null)
-      docker_registry_username = try(each.value.site_config.application_stack.docker_registry_username, null)
-      docker_registry_password = try(each.value.site_config.application_stack.docker_registry_password, null)
-      python_version           = try(each.value.site_config.application_stack.python_version, null)
-      node_version             = try(each.value.site_config.application_stack.node_version, null)
-      php_version              = try(each.value.site_config.application_stack.php_version, null)
-      ruby_version             = try(each.value.site_config.application_stack.ruby_version, null)
-      dotnet_version           = try(each.value.site_config.application_stack.dotnet_version, null)
-      java_version             = try(each.value.site_config.application_stack.java_version, null)
-      java_server              = try(each.value.site_config.application_stack.java_server, null)
-      java_server_version      = try(each.value.site_config.application_stack.java_server_version, null)
+      docker_image_name        = try(var.settings.site_config.application_stack.docker_image_name, null)
+      docker_image_tag         = try(var.settings.site_config.application_stack.docker_image_tag, null)
+      docker_registry_url      = try(var.settings.site_config.application_stack.docker_registry_url, null)
+      docker_registry_username = try(var.settings.site_config.application_stack.docker_registry_username, null)
+      docker_registry_password = try(var.settings.site_config.application_stack.docker_registry_password, null)
+      python_version           = try(var.settings.site_config.application_stack.python_version, null)
+      node_version             = try(var.settings.site_config.application_stack.node_version, null)
+      php_version              = try(var.settings.site_config.application_stack.php_version, null)
+      ruby_version             = try(var.settings.site_config.application_stack.ruby_version, null)
+      dotnet_version           = try(var.settings.site_config.application_stack.dotnet_version, null)
+      java_version             = try(var.settings.site_config.application_stack.java_version, null)
+      java_server              = try(var.settings.site_config.application_stack.java_server, null)
+      java_server_version      = try(var.settings.site_config.application_stack.java_server_version, null)
     }
 
     # Optional IP restrictions
