@@ -3,9 +3,9 @@
 resource "azurerm_linux_web_app_slot" "slots" {
   for_each = var.slots
 
-  name                = each.value.name
-  app_service_id      = azurerm_linux_web_app.app_service.id
-  tags                = local.tags
+  name           = each.value.name
+  app_service_id = azurerm_linux_web_app.app_service.id
+  tags           = local.tags
 
   client_affinity_enabled = lookup(each.value, "client_affinity_enabled", null)
   enabled                 = lookup(each.value, "enabled", null)
@@ -24,33 +24,33 @@ resource "azurerm_linux_web_app_slot" "slots" {
 
   site_config {
     # numberOfWorkers           = lookup(each.value.site_config, "numberOfWorkers", 1)  # defined in ARM template below
-    always_on                 = lookup(each.value.site_config, "always_on", false)
-    app_command_line          = lookup(each.value.site_config, "app_command_line", null)
-    default_documents         = lookup(each.value.site_config, "default_documents", null)
-    ftps_state                = lookup(each.value.site_config, "ftps_state", "FtpsOnly")
-    http2_enabled             = lookup(each.value.site_config, "http2_enabled", false)
-    local_mysql_enabled       = lookup(each.value.site_config, "local_mysql_enabled", null)
-    linux_fx_version          = lookup(each.value.site_config, "linux_fx_version", null)
-    managed_pipeline_mode     = lookup(each.value.site_config, "managed_pipeline_mode", null)
-    remote_debugging_enabled  = lookup(each.value.site_config, "remote_debugging_enabled", null)
-    remote_debugging_version  = lookup(each.value.site_config, "remote_debugging_version", null)
-    websockets_enabled        = lookup(each.value.site_config, "websockets_enabled", false)
-    scm_type                  = lookup(each.value.site_config, "scm_type", null)
+    always_on                = lookup(each.value.site_config, "always_on", false)
+    app_command_line         = lookup(each.value.site_config, "app_command_line", null)
+    default_documents        = lookup(each.value.site_config, "default_documents", null)
+    ftps_state               = lookup(each.value.site_config, "ftps_state", "FtpsOnly")
+    http2_enabled            = lookup(each.value.site_config, "http2_enabled", false)
+    local_mysql_enabled      = lookup(each.value.site_config, "local_mysql_enabled", null)
+    linux_fx_version         = lookup(each.value.site_config, "linux_fx_version", null)
+    managed_pipeline_mode    = lookup(each.value.site_config, "managed_pipeline_mode", null)
+    remote_debugging_enabled = lookup(each.value.site_config, "remote_debugging_enabled", null)
+    remote_debugging_version = lookup(each.value.site_config, "remote_debugging_version", null)
+    websockets_enabled       = lookup(each.value.site_config, "websockets_enabled", false)
+    scm_type                 = lookup(each.value.site_config, "scm_type", null)
 
     application_stack {
-      docker_image_name             = try(var.settings.site_config.application_stack.docker_image_name, null)
-      docker_image_tag          = try(var.settings.site_config.application_stack.docker_image_tag, null)
-      docker_registry_url       = try(var.settings.site_config.application_stack.docker_registry_url, null)
-      docker_registry_username  = try(var.settings.site_config.application_stack.docker_registry_username, null)
-      docker_registry_password  = try(var.settings.site_config.application_stack.docker_registry_password, null)
-      python_version = try(var.settings.site_config.application_stack.python_version, null)
-      node_version   = try(var.settings.site_config.application_stack.node_version, null)
-      php_version    = try(var.settings.site_config.application_stack.php_version, null)
-      ruby_version   = try(var.settings.site_config.application_stack.ruby_version, null)
-      dotnet_version = try(var.settings.site_config.application_stack.dotnet_version, null)
-      java_version        = try(var.settings.site_config.application_stack.java_version, null)
-      java_server         = try(var.settings.site_config.application_stack.java_server, null)
-      java_server_version = try(var.settings.site_config.application_stack.java_server_version, null)
+      docker_image_name        = try(var.settings.site_config.application_stack.docker_image_name, null)
+      docker_image_tag         = try(var.settings.site_config.application_stack.docker_image_tag, null)
+      docker_registry_url      = try(var.settings.site_config.application_stack.docker_registry_url, null)
+      docker_registry_username = try(var.settings.site_config.application_stack.docker_registry_username, null)
+      docker_registry_password = try(var.settings.site_config.application_stack.docker_registry_password, null)
+      python_version           = try(var.settings.site_config.application_stack.python_version, null)
+      node_version             = try(var.settings.site_config.application_stack.node_version, null)
+      php_version              = try(var.settings.site_config.application_stack.php_version, null)
+      ruby_version             = try(var.settings.site_config.application_stack.ruby_version, null)
+      dotnet_version           = try(var.settings.site_config.application_stack.dotnet_version, null)
+      java_version             = try(var.settings.site_config.application_stack.java_version, null)
+      java_server              = try(var.settings.site_config.application_stack.java_server, null)
+      java_server_version      = try(var.settings.site_config.application_stack.java_server_version, null)
     }
 
     dynamic "cors" {
@@ -173,25 +173,25 @@ resource "azurerm_linux_web_app_slot" "slots" {
     for_each = lookup(each.value, "auth_settings_v2", {}) != {} ? [1] : []
 
     content {
-      auth_enabled                    = lookup(each.value.auth_settings_v2, "enabled", false)
-      config_file_path                = lookup(each.value.auth_settings_v2, "config_file_path", null)
-      default_provider               = lookup(each.value.auth_settings_v2, "default_provider", null)
-      runtime_version                = lookup(each.value.auth_settings_v2, "runtime_version", null)
-      unauthenticated_action  = lookup(each.value.auth_settings_v2, "unauthenticated_client_action", null)
+      auth_enabled           = lookup(each.value.auth_settings_v2, "enabled", false)
+      config_file_path       = lookup(each.value.auth_settings_v2, "config_file_path", null)
+      default_provider       = lookup(each.value.auth_settings_v2, "default_provider", null)
+      runtime_version        = lookup(each.value.auth_settings_v2, "runtime_version", null)
+      unauthenticated_action = lookup(each.value.auth_settings_v2, "unauthenticated_client_action", null)
 
       dynamic "active_directory_v2" {
         for_each = lookup(each.value.auth_settings_v2, "active_directory", {}) != {} ? [1] : []
 
         content {
-          client_id         = can(each.value.auth_settings_v2.active_directory.client_id_key) ? var.azuread_applications[try(each.value.auth_settings_v2.active_directory.client_id_lz_key, var.client_config.landingzone_key)][each.value.auth_settings_v2.active_directory.client_id_key].application_id : each.value.auth_settings_v2.active_directory.client_id
-          tenant_auth_endpoint = each.value.auth_settings_v2.active_directory.tenant_auth_endpoint
-          allowed_audiences = lookup(each.value.auth_settings_v2.active_directory, "allowed_audiences", null)
+          client_id                  = can(each.value.auth_settings_v2.active_directory.client_id_key) ? var.azuread_applications[try(each.value.auth_settings_v2.active_directory.client_id_lz_key, var.client_config.landingzone_key)][each.value.auth_settings_v2.active_directory.client_id_key].application_id : each.value.auth_settings_v2.active_directory.client_id
+          tenant_auth_endpoint       = each.value.auth_settings_v2.active_directory.tenant_auth_endpoint
+          allowed_audiences          = lookup(each.value.auth_settings_v2.active_directory, "allowed_audiences", null)
           client_secret_setting_name = lookup(each.value.auth_settings_v2.active_directory, "client_secret_setting_name", null)
-          jwt_allowed_groups = lookup(each.value.auth_settings_v2.active_directory, "jwt_allowed_groups", [])
-          allowed_groups = lookup(each.value.auth_settings_v2.active_directory, "allowed_groups", [])
-          allowed_identities = lookup(each.value.auth_settings_v2.active_directory, "allowed_identities", [])
-          allowed_applications = lookup(each.value.auth_settings_v2.active_directory, "allowed_applications", [])
-          login_parameters = lookup(each.value.auth_settings_v2.active_directory, "login_parameters", {})
+          jwt_allowed_groups         = lookup(each.value.auth_settings_v2.active_directory, "jwt_allowed_groups", [])
+          allowed_groups             = lookup(each.value.auth_settings_v2.active_directory, "allowed_groups", [])
+          allowed_identities         = lookup(each.value.auth_settings_v2.active_directory, "allowed_identities", [])
+          allowed_applications       = lookup(each.value.auth_settings_v2.active_directory, "allowed_applications", [])
+          login_parameters           = lookup(each.value.auth_settings_v2.active_directory, "login_parameters", {})
         }
       }
 
@@ -199,10 +199,10 @@ resource "azurerm_linux_web_app_slot" "slots" {
         for_each = lookup(each.value.auth_settings_v2, "facebook", {}) != {} ? [1] : []
 
         content {
-          app_id       = each.value.auth_settings_v2.facebook.app_id
-          app_secret_setting_name   = each.value.auth_settings_v2.facebook.app_secret_setting_name
-          graph_api_version = lookup(each.value.auth_settings_v2.facebook, "graph_api_version", null)
-          login_scopes = lookup(each.value.auth_settings_v2.facebook, "oauth_scopes", null)
+          app_id                  = each.value.auth_settings_v2.facebook.app_id
+          app_secret_setting_name = each.value.auth_settings_v2.facebook.app_secret_setting_name
+          graph_api_version       = lookup(each.value.auth_settings_v2.facebook, "graph_api_version", null)
+          login_scopes            = lookup(each.value.auth_settings_v2.facebook, "oauth_scopes", null)
         }
       }
 
@@ -210,9 +210,9 @@ resource "azurerm_linux_web_app_slot" "slots" {
         for_each = lookup(each.value.auth_settings_v2, "google", {}) != {} ? [1] : []
 
         content {
-          client_id     = each.value.auth_settings_v2.google.client_id
+          client_id                  = each.value.auth_settings_v2.google.client_id
           client_secret_setting_name = each.value.auth_settings_v2.google.client_secret_setting_name
-          login_scopes  = lookup(each.value.auth_settings_v2.google, "oauth_scopes", null)
+          login_scopes               = lookup(each.value.auth_settings_v2.google, "oauth_scopes", null)
         }
       }
 
@@ -220,9 +220,9 @@ resource "azurerm_linux_web_app_slot" "slots" {
         for_each = lookup(each.value.auth_settings_v2, "microsoft", {}) != {} ? [1] : []
 
         content {
-          client_id         = can(each.value.auth_settings_v2.microsoft.client_id_key) ? var.azuread_applications[try(each.value.auth_settings_v2.microsoft.client_id_lz_key, var.client_config.landingzone_key)][each.value.auth_settings_v2.microsoft.client_id_key].application_id : each.value.auth_settings_v2.microsoft.client_id
-          client_secret_setting_name     = each.value.auth_settings_v2.microsoft.client_secret_setting_name
-          login_scopes      = lookup(each.value.auth_settings_v2.microsoft, "oauth_scopes", null)
+          client_id                  = can(each.value.auth_settings_v2.microsoft.client_id_key) ? var.azuread_applications[try(each.value.auth_settings_v2.microsoft.client_id_lz_key, var.client_config.landingzone_key)][each.value.auth_settings_v2.microsoft.client_id_key].application_id : each.value.auth_settings_v2.microsoft.client_id
+          client_secret_setting_name = each.value.auth_settings_v2.microsoft.client_secret_setting_name
+          login_scopes               = lookup(each.value.auth_settings_v2.microsoft, "oauth_scopes", null)
         }
       }
 
@@ -230,23 +230,23 @@ resource "azurerm_linux_web_app_slot" "slots" {
         for_each = lookup(each.value.auth_settings_v2, "twitter", {}) != {} ? [1] : []
 
         content {
-          consumer_key    = each.value.auth_settings_v2.twitter.consumer_key
+          consumer_key                 = each.value.auth_settings_v2.twitter.consumer_key
           consumer_secret_setting_name = each.value.auth_settings_v2.twitter.consumer_secret_setting_name
         }
       }
 
       login {
-        logout_endpoint    = try(each.value.auth_settings_v2.login.logout_endpoint, null)
-        token_store_enabled = try(each.value.auth_settings_v2.login.token_store_enabled, null)
-        token_refresh_extension_time = try(each.value.auth_settings_v2.login.token_refresh_extension_time, null)
-        token_store_path = try(each.value.auth_settings_v2.login.token_store_path, null)
-        token_store_sas_setting_name = try(each.value.auth_settings_v2.login.token_store_sas_setting_name, null)
+        logout_endpoint                   = try(each.value.auth_settings_v2.login.logout_endpoint, null)
+        token_store_enabled               = try(each.value.auth_settings_v2.login.token_store_enabled, null)
+        token_refresh_extension_time      = try(each.value.auth_settings_v2.login.token_refresh_extension_time, null)
+        token_store_path                  = try(each.value.auth_settings_v2.login.token_store_path, null)
+        token_store_sas_setting_name      = try(each.value.auth_settings_v2.login.token_store_sas_setting_name, null)
         preserve_url_fragments_for_logins = try(each.value.auth_settings_v2.login.preserve_url_fragments_for_logins, null)
-        allowed_external_redirect_urls = try(each.value.auth_settings_v2.login.allowed_external_redirect_urls, null)
-        cookie_expiration_convention = try(each.value.auth_settings_v2.login.cookie_expiration_convention, null)
-        cookie_expiration_time = try(each.value.auth_settings_v2.login.cookie_expiration_time, null)
-        validate_nonce = try(each.value.auth_settings_v2.login.validate_nonce, null)
-        nonce_expiration_time = try(each.value.auth_settings_v2.login.nonce_expiration_time, null)
+        allowed_external_redirect_urls    = try(each.value.auth_settings_v2.login.allowed_external_redirect_urls, null)
+        cookie_expiration_convention      = try(each.value.auth_settings_v2.login.cookie_expiration_convention, null)
+        cookie_expiration_time            = try(each.value.auth_settings_v2.login.cookie_expiration_time, null)
+        validate_nonce                    = try(each.value.auth_settings_v2.login.validate_nonce, null)
+        nonce_expiration_time             = try(each.value.auth_settings_v2.login.nonce_expiration_time, null)
       }
     }
   }
