@@ -6,7 +6,9 @@
 
 module "private_endpoint" {
   source   = "../../networking/private_endpoint"
-  for_each = try(var.private_endpoints, {})
+  for_each = {
+    for k,v in var.private_endpoints : k => v if lookup(v, "ignore_private_dns_zone_group", false) == false
+  }
 
   resource_id         = azurerm_mariadb_server.mariadb.id
   name                = each.value.name
@@ -21,10 +23,11 @@ module "private_endpoint" {
   client_config       = var.client_config
 }
 
-module "private_endpoint" {
-  source   = "../../networking/private_endpoint"
-  for_each = try(var.private_endpoints, {})
-
+module "private_endpoint_v1" {
+  source   = "../../networking/private_endpoint_v1"
+  for_each = {
+    for k,v in var.private_endpoints : k => v if lookup(v, "ignore_private_dns_zone_group", false) == true
+  }
   resource_id         = azurerm_mariadb_server.mariadb.id
   name                = each.value.name
   location            = local.location
@@ -34,6 +37,5 @@ module "private_endpoint" {
   global_settings     = var.global_settings
   tags                = local.tags
   base_tags           = var.base_tags
-  private_dns         = var.private_dns
   client_config       = var.client_config
 }

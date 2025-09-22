@@ -29,7 +29,6 @@ module "private_endpoint_v1" {
   global_settings     = var.global_settings
   location            = local.location
   name                = each.value.name
-  private_dns         = can(each.value.private_dns) ? var.remote_objects.private_dns : {}
   resource_group_name = local.resource_group_name
   resource_id         = azurerm_servicebus_namespace.namespace.id
   settings            = each.value

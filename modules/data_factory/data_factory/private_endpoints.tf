@@ -11,7 +11,6 @@ module "private_endpoint" {
   global_settings     = var.global_settings
   tags                = local.tags
   base_tags           = var.base_tags
-  private_dns         = var.remote_objects.private_dns
   client_config       = var.client_config
 }
 
@@ -28,6 +27,5 @@ module "private_endpoint_v1" {
   global_settings     = var.global_settings
   tags                = local.tags
   base_tags           = var.base_tags
-  private_dns         = var.remote_objects.private_dns
   client_config       = var.client_config
 }

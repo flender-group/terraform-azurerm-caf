@@ -36,7 +36,6 @@ module "managed_resources_private_endpoints" {
   global_settings     = var.global_settings
   location            = local.location
   name                = each.value.name
-  private_dns         = var.private_dns
   resource_group_name = local.resource_group_name
   resource_id         = each.value.name == "eventhub" ? azurerm_purview_account.pva.managed_resources[0].event_hub_namespace_id : azurerm_purview_account.pva.managed_resources[0].storage_account_id
   settings            = each.value
