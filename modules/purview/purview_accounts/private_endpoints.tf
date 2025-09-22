@@ -6,7 +6,9 @@
 
 module "private_endpoint" {
   source   = "../../networking/private_endpoint"
-  for_each = try(var.settings.private_endpoints, {})
+  for_each = {
+    for k,v in lookup(var.settings, "private_endpoints", {}) : k => v if lookup(v, "ignore_private_dns_zone_group", false) == false
+  }
 
   base_tags           = var.base_tags
   tags                = local.tags
@@ -24,7 +26,9 @@ module "private_endpoint" {
 # Requires azurerm >=2.92.0
 module "managed_resources_private_endpoints" {
   source   = "../../networking/private_endpoint"
-  for_each = try(var.settings.managed_resources_private_endpoints, {})
+  for_each = {
+    for k,v in lookup(var.settings, "private_endpoints", {}) : k => v if lookup(v, "ignore_private_dns_zone_group", false) == true
+  }
 
   base_tags           = var.base_tags
   tags                = local.tags

@@ -24,24 +24,6 @@ resource "azurerm_private_endpoint" "pep" {
     request_message                = try(var.settings.private_service_connection.request_message, null)
   }
 
-  dynamic "private_dns_zone_group" {
-    for_each = can(var.settings.private_dns) ? [var.settings.private_dns] : []
-
-    content {
-      name = lookup(private_dns_zone_group.value, "zone_group_name", "default")
-      private_dns_zone_ids = concat(
-        flatten([
-          for key in try(private_dns_zone_group.value.keys, []) : [
-            try(var.private_dns[try(private_dns_zone_group.value.lz_key, var.client_config.landingzone_key)][key].id, [])
-          ]
-          ]
-        ),
-        lookup(private_dns_zone_group.value, "ids", [])
-      )
-
-    }
-  }
-
   dynamic "ip_configuration" {
     for_each = try(var.settings.ip_configurations, {})
 
@@ -51,5 +33,20 @@ resource "azurerm_private_endpoint" "pep" {
       subresource_name   = lookup(ip_configuration.value, "subresource_name", null)
       member_name        = lookup(ip_configuration.value, "member_name", null)
     }
+  }
+
+  lifecycle {
+    ignore_changes = [ 
+      private_dns_zone_group
+    ]
+  }
+}
+
+resource "time_sleep" "delay" {
+  count           = can(lookup(var.settings, var.settings.delay_time_after_creation, false)) ? 1 : 0
+  depends_on      = [azurerm_private_endpoint.pep]
+  create_duration = var.settings.delay_time_after_creation
+  lifecycle {
+    replace_triggered_by = [azurerm_private_endpoint.pep]
   }
 }

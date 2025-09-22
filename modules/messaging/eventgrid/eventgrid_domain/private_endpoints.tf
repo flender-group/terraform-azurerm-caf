@@ -4,7 +4,9 @@
 
 module "private_endpoint" {
   source   = "../../../networking/private_endpoint"
-  for_each = var.private_endpoints
+  for_each = {
+    for k,v in var.private_endpoints : k => v if lookup(v, "ignore_private_dns_zone_group", false) == false
+  }
 
   resource_id         = azurerm_eventgrid_domain.egd.id
   name                = each.value.name
@@ -15,5 +17,22 @@ module "private_endpoint" {
   global_settings     = var.global_settings
   base_tags           = local.tags
   private_dns         = var.remote_objects.private_dns
+  client_config       = var.client_config
+}
+
+module "private_endpoint_v1" {
+  source   = "../../../networking/private_endpoint_v1"
+  for_each = {
+    for k,v in var.private_endpoints : k => v if lookup(v, "ignore_private_dns_zone_group", false) == true
+  }
+
+  resource_id         = azurerm_eventgrid_domain.egd.id
+  name                = each.value.name
+  location            = var.remote_objects.resource_groups[each.value.resource_group_key].location
+  resource_group_name = var.remote_objects.resource_groups[each.value.resource_group_key].name
+  subnet_id           = can(each.value.subnet_id) ? each.value.subnet_id : var.remote_objects.vnets[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.vnet_key].subnets[each.value.subnet_key].id
+  settings            = each.value
+  global_settings     = var.global_settings
+  base_tags           = local.tags
   client_config       = var.client_config
 }
