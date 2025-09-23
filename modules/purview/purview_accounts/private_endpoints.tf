@@ -7,7 +7,7 @@
 module "private_endpoint" {
   source   = "../../networking/private_endpoint"
   for_each = {
-    for k,v in lookup(var.settings, "private_endpoints", {}) : k => v if lookup(v, "ignore_private_dns_zone_group", false) == false
+    for k,v in var.settings.managed_resources_private_endpoints : k => v if lookup(v, "ignore_private_dns_zone_group", false) == false
   }
 
   base_tags           = var.base_tags
@@ -27,7 +27,7 @@ module "private_endpoint" {
 module "managed_resources_private_endpoints" {
   source   = "../../networking/private_endpoint"
   for_each = {
-    for k,v in lookup(var.settings, "private_endpoints", {}) : k => v if lookup(v, "ignore_private_dns_zone_group", false) == true
+    for k,v in var.settings.managed_resources_private_endpoints : k => v if lookup(v, "ignore_private_dns_zone_group", false) == true
   }
 
   base_tags           = var.base_tags
