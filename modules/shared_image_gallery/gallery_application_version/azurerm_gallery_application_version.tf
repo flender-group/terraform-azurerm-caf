@@ -62,8 +62,9 @@ resource "azurerm_gallery_application_version" "gallery_application_version" {
   gallery_application_id = var.gallery_application_id
   location               = var.location
   enable_health_check    = try(var.settings.enable_health_check, false)
-  end_of_life_date       = try(var.settings.end_of_life_date, try(can(var.settings.media_link) ? null : timeadd(time_rotating.sas[0].id, format("%sh", var.settings.storage_accounts.sas_policy.expire_in_days * 24))))
+  end_of_life_date       = try(var.settings.end_of_life_date, null)
   exclude_from_latest    = try(var.settings.exclude_from_latest, false)
+  package_file           = try(var.settings.package_file, null)
   tags                   = local.tags
   manage_action {
     install = var.settings.install_cmd
