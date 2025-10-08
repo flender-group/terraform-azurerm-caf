@@ -5,6 +5,8 @@ resource "azurecaf_name" "app_service" {
   suffixes      = try(var.settings.name_suffix, null)
   random_length = try(var.settings.random_length, 0)
   clean_input   = true
+  passthrough   = var.global_settings.passthrough
+  use_slug      = var.global_settings.use_slug
 }
 
 resource "azurerm_linux_web_app" "app_service" {
