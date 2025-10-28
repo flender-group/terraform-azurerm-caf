@@ -16,10 +16,12 @@ resource "azurerm_postgresql_flexible_server" "postgresql" {
   sku_name            = try(var.settings.sku_name, null)
   zone                = try(var.settings.zone, null)
   storage_mb          = try(var.settings.storage_mb, null)
-  auto_grow_enabled   = try(var.settings.auto_grow_enabled, null)
+  storage_tier        = try(var.settings.storage_tier, null)
 
-  delegated_subnet_id = var.remote_objects.subnet_id
-  private_dns_zone_id = var.remote_objects.private_dns_zone_id
+  public_network_access_enabled = try(var.settings.public_network_access_enabled, null)
+  auto_grow_enabled             = try(var.settings.auto_grow_enabled, null)
+  delegated_subnet_id           = var.remote_objects.subnet_id
+  private_dns_zone_id           = var.remote_objects.private_dns_zone_id
 
   create_mode                       = try(var.settings.create_mode, "Default")
   point_in_time_restore_time_in_utc = try(var.settings.create_mode, "PointInTimeRestore") == "PointInTimeRestore" ? try(var.settings.point_in_time_restore_time_in_utc, null) : null
@@ -59,13 +61,13 @@ resource "azurerm_postgresql_flexible_server" "postgresql" {
   }
 
   dynamic "identity" {
-      for_each = can(var.settings.identity) ? [var.settings.identity] : []
+    for_each = can(var.settings.identity) ? [var.settings.identity] : []
 
-      content {
-        type         = "UserAssigned"
-        identity_ids = local.managed_identities
-      }
+    content {
+      type         = "UserAssigned"
+      identity_ids = local.managed_identities
     }
+  }
 
   lifecycle {
     ignore_changes = [
