@@ -60,6 +60,15 @@ resource "azurerm_linux_web_app" "app_service" {
       java_server_version      = try(var.settings.site_config.application_stack.java_server_version, null)
     }
 
+    dynamic "cors" {
+      for_each = lookup(var.settings.site_config, "cors", {}) != {} ? [1] : []
+
+      content {
+        allowed_origins     = lookup(var.settings.site_config.cors, "allowed_origins", null)
+        support_credentials = lookup(var.settings.site_config.cors, "support_credentials", null)
+      }
+    }
+
     # Optional IP restrictions
     dynamic "ip_restriction" {
       for_each = try(var.settings.site_config.ip_restriction, {})

@@ -73,6 +73,15 @@ resource "azurerm_windows_web_app" "app_service" {
       python              = try(var.settings.site_config.application_stack.python, null)
     }
 
+    dynamic "cors" {
+      for_each = lookup(var.settings.site_config, "cors", {}) != {} ? [1] : []
+
+      content {
+        allowed_origins     = lookup(var.settings.site_config.cors, "allowed_origins", null)
+        support_credentials = lookup(var.settings.site_config.cors, "support_credentials", null)
+      }
+    }
+
     dynamic "auto_heal_setting" {
       for_each = lookup(var.settings, "auto_heal_setting", {}) != {} ? [1] : []
 
