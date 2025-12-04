@@ -1,10 +1,12 @@
 resource "azurecaf_name" "app_service" {
   name          = var.name
   resource_type = "azurerm_app_service"
-  prefixes      = try(var.settings.name_prefix, null)
+  prefixes      = var.global_settings.prefixes
   suffixes      = try(var.settings.name_suffix, null)
-  random_length = try(var.settings.random_length, 0)
+  random_length = var.global_settings.random_length
   clean_input   = true
+  passthrough   = var.global_settings.passthrough
+  use_slug      = var.global_settings.use_slug
 }
 
 resource "azurerm_windows_web_app" "app_service" {
@@ -69,6 +71,15 @@ resource "azurerm_windows_web_app" "app_service" {
       tomcat_version      = try(var.settings.site_config.application_stack.tomcat_version, null)
       java_version        = try(var.settings.site_config.application_stack.java_version, null)
       python              = try(var.settings.site_config.application_stack.python, null)
+    }
+
+    dynamic "cors" {
+      for_each = lookup(var.settings.site_config, "cors", {}) != {} ? [1] : []
+
+      content {
+        allowed_origins     = lookup(var.settings.site_config.cors, "allowed_origins", null)
+        support_credentials = lookup(var.settings.site_config.cors, "support_credentials", null)
+      }
     }
 
     dynamic "auto_heal_setting" {

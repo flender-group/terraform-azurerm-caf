@@ -5,6 +5,8 @@ resource "azurecaf_name" "app_service" {
   suffixes      = try(var.settings.name_suffix, null)
   random_length = try(var.settings.random_length, 0)
   clean_input   = true
+  passthrough   = var.global_settings.passthrough
+  use_slug      = var.global_settings.use_slug
 }
 
 resource "azurerm_linux_web_app" "app_service" {
@@ -56,6 +58,15 @@ resource "azurerm_linux_web_app" "app_service" {
       java_version             = try(var.settings.site_config.application_stack.java_version, null)
       java_server              = try(var.settings.site_config.application_stack.java_server, null)
       java_server_version      = try(var.settings.site_config.application_stack.java_server_version, null)
+    }
+
+    dynamic "cors" {
+      for_each = lookup(var.settings.site_config, "cors", {}) != {} ? [1] : []
+
+      content {
+        allowed_origins     = lookup(var.settings.site_config.cors, "allowed_origins", null)
+        support_credentials = lookup(var.settings.site_config.cors, "support_credentials", null)
+      }
     }
 
     # Optional IP restrictions
