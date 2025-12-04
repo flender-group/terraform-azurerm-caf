@@ -7,3 +7,12 @@ resource "azurerm_storage_container" "stg" {
   container_access_type = try(var.settings.container_access_type, "private")
   metadata              = try(var.settings.metadata, null)
 }
+
+resource "azurerm_storage_container_immutability_policy" "stg" {
+  for_each                              = try(var.settings.immutability_policy, null) == null ? [] : [1]
+  storage_container_resource_manager_id = azurerm_storage_container.stg.resource_manager_id
+  immutability_period_in_days           = var.settings.immutability_policy.immutability_period_in_days
+  locked                                = try(var.settings.immutability_policy.locked, null)
+  protected_append_writes_all_enabled   = try(var.settings.immutability_policy.protected_append_writes_all_enabled, null)
+  protected_append_writes_enabled       = try(var.settings.immutability_policy.protected_append_writes_enabled, null)
+}
