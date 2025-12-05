@@ -173,7 +173,7 @@ resource "azurerm_windows_web_app_slot" "slots" {
     }
   }
 
-  app_settings = var.app_settings
+  app_settings = merge(local.app_settings, try(each.value.app_settings, {}))
 
   dynamic "connection_string" {
     for_each = var.connection_strings
