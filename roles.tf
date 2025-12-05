@@ -108,6 +108,7 @@ locals {
     azuread_service_principals = local.combined_objects_azuread_service_principals
     logged_in                  = local.logged_in
     managed_identities         = local.combined_objects_managed_identities
+    virtual_machines           = local.combined_objects_virtual_machines
   }
 
 
@@ -177,6 +178,7 @@ locals {
     subscriptions                              = local.combined_objects_subscriptions
     synapse_workspaces                         = local.combined_objects_synapse_workspaces
     virtual_machine_scale_sets                 = local.combined_objects_virtual_machine_scale_sets
+    virtual_machines                           = local.combined_objects_virtual_machines
     virtual_subnets                            = local.combined_objects_virtual_subnets
     windows_web_apps                           = local.combined_objects_windows_web_apps
     wvd_application_groups                     = local.combined_objects_wvd_application_groups
