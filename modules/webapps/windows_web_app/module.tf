@@ -404,11 +404,10 @@ resource "azurerm_windows_web_app" "app_service" {
   dynamic "sticky_settings" {
     for_each = try(var.settings.sticky_settings, null) == null ? [] : [1]
     content {
-      app_setting_names       = try(var.settings.sticky_settings.app_setting_names, [])
-      connection_string_names = try(var.settings.sticky_settings.connection_string_names, [])
+      app_setting_names       = length(try(var.settings.sticky_settings.app_setting_names, [])) > 0 ? var.settings.sticky_settings.app_setting_names : null
+      connection_string_names = length(try(var.settings.sticky_settings.connection_string_names, [])) > 0 ? var.settings.sticky_settings.connection_string_names : null
     }
   }
-
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "app_service" {
