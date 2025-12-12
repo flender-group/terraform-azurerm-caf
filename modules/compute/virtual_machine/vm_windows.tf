@@ -57,6 +57,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
   network_interface_ids                                  = local.nic_ids
   priority                                               = try(each.value.priority, null)
   patch_mode                                             = try(each.value.patch_mode, "AutomaticByOS")
+  patch_assessment_mode                                  = try(each.value.patch_assessment_mode, null)
   provision_vm_agent                                     = try(each.value.provision_vm_agent, true)
   proximity_placement_group_id                           = can(each.value.proximity_placement_group_key) || can(each.value.proximity_placement_group.key) ? var.proximity_placement_groups[try(var.client_config.landingzone_key, var.client_config.landingzone_key)][try(each.value.proximity_placement_group_key, each.value.proximity_placement_group.key)].id : try(each.value.proximity_placement_group_id, each.value.proximity_placement_group.id, null)
   resource_group_name                                    = local.resource_group_name
@@ -182,9 +183,10 @@ resource "azurerm_windows_virtual_machine" "vm" {
     ignore_changes = [
       name,
       computer_name,
-      os_disk[0].name, #for ASR disk restores
-      admin_username,  # Only used for initial deployment as it can be changed later by GPO
-      admin_password   # Only used for initial deployment as it can be changed later by GPO
+      os_disk[0].name,    #for ASR disk restores
+      admin_username,     # Only used for initial deployment as it can be changed later by GPO
+      admin_password,     # Only used for initial deployment as it can be changed later by GPO
+      gallery_application # Deploy via separate resource to avoid conflict with Policy driven updates
     ]
   }
 
