@@ -97,3 +97,7 @@ variable "virtual_subnets" {
   default     = {}
   nullable    = false
 }
+
+variable gallery_application_versions {
+  default = {}
+}
