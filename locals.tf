@@ -387,6 +387,7 @@ locals {
   }
 
   shared_services = {
+    advisor_recommendation_digests            = try(var.shared_services.advisor_recommendation_digests, {})
     automations                               = try(var.shared_services.automations, {})
     automation_schedules                      = try(var.shared_services.automation_schedules, {})
     automation_runbooks                       = try(var.shared_services.automation_runbooks, {})
