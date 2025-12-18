@@ -50,6 +50,14 @@ resource "azurerm_monitor_activity_log_alert" "mala" {
           services  = try(service_health.value.services, null)
         }
       }
+      dynamic "resource_health" {
+        for_each = try(var.settings.resource_health, null) != null ? [var.settings.resource_health] : []
+        content {
+          current   = try(resource_health.value.current, null)
+          previous  = try(resource_health.value.previous, null)
+          reason    = try(resource_health.value.reason, null)
+        }
+      }
     }
   }
   dynamic "action" {
