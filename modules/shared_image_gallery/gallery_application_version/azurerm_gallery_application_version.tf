@@ -90,4 +90,9 @@ resource "azurerm_gallery_application_version" "gallery_application_version" {
       storage_account_type   = coalesce(try(target_region.value.storage_account_type, null), try(var.settings.defult_storage_account_type, "Standard_LRS"))
     }
   }
+  lifecycle {
+    ignore_changes = [
+      source[0].media_link
+    ]
+  }
 }
