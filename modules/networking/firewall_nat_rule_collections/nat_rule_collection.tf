@@ -2,7 +2,7 @@
 # azurerm_firewall_nat_rule_collection - https://www.terraform.io/docs/providers/azurerm/r/firewall_nat_rule_collection.html
 
 resource "azurecaf_name" "natcollection" {
-  for_each = toset(var.rule_collections)
+  for_each = var.rule_collections
 
   name          = var.azurerm_firewall_nat_rule_collection_definition[each.key].name
   resource_type = "azurerm_firewall_nat_rule_collection"
@@ -14,7 +14,7 @@ resource "azurecaf_name" "natcollection" {
 }
 
 resource "azurerm_firewall_nat_rule_collection" "natcollection" {
-  for_each = toset(var.rule_collections)
+  for_each = var.rule_collections
 
   name                = azurecaf_name.natcollection[each.key].result
   azure_firewall_name = var.azure_firewall_name
