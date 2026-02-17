@@ -328,4 +328,33 @@ resource "azurerm_windows_web_app_slot" "slots" {
       }
     }
   }
+
+  dynamic "logs" {
+    for_each = lookup(each.value, "logs", {}) != {} ? [1] : []
+    content {
+      detailed_error_messages = try(each.value.logs.detailed_error_messages, null)
+      failed_request_tracing  = try(each.value.logs.failed_request_tracing, null)
+      application_logs {
+        file_system_level = try(each.value.logs.application_logs.file_system_level, null)
+      }
+      dynamic "http_logs" {
+        for_each = lookup(each.value.logs.http_logs, "file_system", {}) != {} ? [1] : []
+        content {
+          file_system {
+            retention_in_days = try(each.value.logs.http_logs.file_system.retention_in_days, null)
+            retention_in_mb   = try(each.value.logs.http_logs.file_system.retention_in_mb, null)
+          }
+        }
+      }
+      dynamic "http_logs" {
+        for_each = lookup(each.value.logs.http_logs, "azure_blob_storage", {}) != {} ? [1] : []
+        content {
+          azure_blob_storage {
+            sas_url           = try(local.http_logs_sas_url, try(each.value.logs.http_logs.azure_blob_storage.sas_url, null))
+            retention_in_days = try(each.value.logs.http_logs.azure_blob_storage.retention_in_days, null)
+          }
+        }
+      }
+    }
+  }
 }

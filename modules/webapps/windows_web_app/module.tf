@@ -375,14 +375,22 @@ resource "azurerm_windows_web_app" "app_service" {
       application_logs {
         file_system_level = try(var.settings.logs.application_logs.file_system_level, null)
       }
-      http_logs {
-        file_system {
-          retention_in_days = try(var.settings.logs.http_logs.file_system.retention_in_days, null)
-          retention_in_mb   = try(var.settings.logs.http_logs.file_system.retention_in_mb, null)
+      dynamic "http_logs" {
+        for_each = lookup(var.settings.logs.http_logs, "file_system", {}) != {} ? [1] : []
+        content {
+          file_system {
+            retention_in_days = try(var.settings.logs.http_logs.file_system.retention_in_days, null)
+            retention_in_mb   = try(var.settings.logs.http_logs.file_system.retention_in_mb, null)
+          }
         }
-        azure_blob_storage {
-          sas_url           = try(local.http_logs_sas_url, try(var.settings.logs.http_logs.azure_blob_storage.sas_url, null))
-          retention_in_days = try(var.settings.logs.http_logs.azure_blob_storage.retention_in_days, null)
+      }
+      dynamic "http_logs" {
+        for_each = lookup(var.settings.logs.http_logs, "azure_blob_storage", {}) != {} ? [1] : []
+        content {
+          azure_blob_storage {
+            sas_url           = try(local.http_logs_sas_url, try(var.settings.logs.http_logs.azure_blob_storage.sas_url, null))
+            retention_in_days = try(var.settings.logs.http_logs.azure_blob_storage.retention_in_days, null)
+          }
         }
       }
     }
