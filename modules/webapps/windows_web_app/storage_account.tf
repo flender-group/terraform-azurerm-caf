@@ -47,14 +47,14 @@ data "azurerm_storage_account_blob_container_sas" "logs" {
 
 
 data "azurerm_storage_account_blob_container_sas" "http_logs" {
-  count = can(var.settings.logs.http_logs) ? 1 : 0
+  count = can(var.settings.logs.http_logs.azure_blob_storage) ? 1 : 0
 
   connection_string = data.azurerm_storage_account.backup_storage_account.0.primary_connection_string
-  container_name    = local.http_logs_storage_account.containers[var.settings.logs.http_logs.container_key].name
+  container_name    = local.http_logs_storage_account.containers[var.settings.logs.http_logs.azure_blob_storage.container_key].name
   https_only        = true
 
   start  = time_rotating.http_logs_sas[0].id
-  expiry = timeadd(time_rotating.http_logs_sas[0].id, format("%sh", var.settings.logs.http_logs.sas_policy.expire_in_days * 24))
+  expiry = timeadd(time_rotating.http_logs_sas[0].id, format("%sh", var.settings.logs.http_logs.azure_blob_storage.sas_policy.expire_in_days * 24))
 
   permissions {
     read   = true
@@ -85,10 +85,10 @@ resource "time_rotating" "logs_sas" {
 }
 
 resource "time_rotating" "http_logs_sas" {
-  count = can(var.settings.logs.http_logs.sas_policy) ? 1 : 0
+  count = can(var.settings.logs.http_logs.azure_blob_storage.sas_policy) ? 1 : 0
 
-  rotation_minutes = lookup(var.settings.logs.http_logs.sas_policy.rotation, "mins", null)
-  rotation_days    = lookup(var.settings.logs.http_logs.sas_policy.rotation, "days", null)
-  rotation_months  = lookup(var.settings.logs.http_logs.sas_policy.rotation, "months", null)
-  rotation_years   = lookup(var.settings.logs.http_logs.sas_policy.rotation, "years", null)
+  rotation_minutes = lookup(var.settings.logs.http_logs.azure_blob_storage.sas_policy.rotation, "mins", null)
+  rotation_days    = lookup(var.settings.logs.http_logs.azure_blob_storage.sas_policy.rotation, "days", null)
+  rotation_months  = lookup(var.settings.logs.http_logs.azure_blob_storage.sas_policy.rotation, "months", null)
+  rotation_years   = lookup(var.settings.logs.http_logs.azure_blob_storage.sas_policy.rotation, "years", null)
 }
