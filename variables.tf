@@ -459,3 +459,6 @@ variable "mi_federated_credentials" {
 variable "invoice_sections" {
   default = {}
 }
+variable "export_essentials" {
+  default = {}
+}
