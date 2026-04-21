@@ -21,7 +21,7 @@ resource "null_resource" "essentials" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "/bin/bash ${path.module}/upload_blob.sh delete"
+    command = "/bin/bash ${path.module}/scripts/upload_blob.sh delete"
 
     environment = {
       BLOB_NAME              = self.triggers.blob_name
