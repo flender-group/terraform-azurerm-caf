@@ -5,6 +5,7 @@ resource "null_resource" "essentials" {
     storage_account_name   = local.storage_account_name
     storage_container_name = var.settings.storage_account.container_name
     subscription_id        = local.subscription_id
+    producer_name          = "terraform-azurerm-caf/modules/export_essentials"
   }
 
   provisioner "local-exec" {
@@ -16,6 +17,7 @@ resource "null_resource" "essentials" {
       STORAGE_ACCOUNT_NAME   = self.triggers.storage_account_name
       STORAGE_CONTAINER_NAME = self.triggers.storage_container_name
       SUBSCRIPTION_ID        = self.triggers.subscription_id
+      PRODUCER_NAME          = self.triggers.producer_name
     }
   }
 

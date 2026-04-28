@@ -21,6 +21,7 @@ case "$action" in
       --content-type "application/json" \
       --type block \
       --file "$tmp_file" \
+      --metadata "producer=$PRODUCER_NAME" \
       --subscription "$SUBSCRIPTION_ID"
     ;;
   delete)

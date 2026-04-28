@@ -11,10 +11,13 @@ module "export_essentials" {
     vnets             = module.networking
     public_dns        = module.dns_zones
     private_dns       = module.private_dns
-    managed_identities = module.managed_identities
+    managed_identities  = module.managed_identities
     keyvaults           = module.keyvaults
     storage_accounts    = module.storage_accounts
   }
   client_config = local.client_config
+  depends_on = [
+    module.storage_accounts
+  ]
 }
 

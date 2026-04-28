@@ -17,5 +17,5 @@ locals {
     var.client_config.subscription_id
   )
 
-  essentials_content        = jsonencode(local.outputs)
+  essentials_content        = jsonencode(local.json_data)
 }
