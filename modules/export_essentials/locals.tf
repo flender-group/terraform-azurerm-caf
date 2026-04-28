@@ -1,4 +1,12 @@
 locals {
+  # Schema version uses YYYYMMDDNN format (year-month-day-two-digit-sequence).
+  # Increment NN (01 → 02) only if two breaking changes land on the same day.
+  # ONLY bump for breaking changes — see schema/contract.json for the policy.
+  # Additive changes (new resource types, new fields) do NOT require a bump.
+  schema_version = 2026042204
+}
+
+locals {
   azuread_application_outputs = [
     "application_id",
     "object_id",
@@ -63,7 +71,8 @@ locals {
 }
 
 locals {
-  outputs = {
+  json_data = {
+    schema_version = local.schema_version
     azuread_applications = {
       for key, value in try(var.remote_objects.azuread_applications, {}) : key => {
         for output_key in local.azuread_application_outputs : output_key => value[output_key] if can(value[output_key])
