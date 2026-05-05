@@ -1,0 +1,65 @@
+{
+  "schema_version": 2026050501,
+  "title": "Producer Essentials Blob",
+  "description": "Validates blobs written by consumer. schema_version uses YYYYMMDDNN format bumped only on breaking changes. Additive changes (new resource types, new fields) do not fail validation of existing consumers.",
+  "schema_version_policy": "Bump schema_version only on breaking changes: renaming/removing a resource type key, changing the type or structure of an existing field, or removing a field consumers may reference. Run scripts/generate_contract.py after any change here.",
+
+  "resource_types": {
+    "azuread_applications": [
+        "application_id",
+        "display_name",
+        "object_id"
+    ],
+    "azuread_groups": [
+        "display_name",
+        "object_id"
+    ],
+    "azuread_service_principals": [
+        "application_id",
+        "display_name",
+        "object_id",
+        "rbac_id"
+    ],
+    "credentials": [
+      "client_id_secret_key_vault_id",
+      "client_id_secret_name",
+      "client_id_secret_versionless_id",
+      "client_secret_secret_key_vault_id",
+      "client_secret_secret_name",
+      "client_secret_secret_versionless_id"
+    ],
+    "keyvaults": [
+        "id",
+        "name",
+        "vault_uri"
+    ],
+    "managed_identities": [
+        "client_id",
+        "id",
+        "name",
+        "principal_id",
+        "rbac_id"
+    ],
+    "private_dns": [
+        "id",
+        "name",
+        "resource_group_name"
+    ],
+    "public_dns": [
+        "id",
+        "name",
+        "resource_group_name"
+    ],
+    "storage_accounts": [
+        "id",
+        "name",
+        "primary_blob_endpoint"
+    ],
+    "vnets": [
+        "address_space",
+        "id",
+        "name",
+        "subnets"
+    ]
+  }
+}
