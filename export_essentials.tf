@@ -4,16 +4,16 @@ module "export_essentials" {
   settings = var.export_essentials
   storage_accounts = local.combined_objects_storage_accounts
   remote_objects = {
-    azuread_applications = module.azuread_applications_v1
-    azuread_groups       = module.azuread_groups
-    azuread_service_principals = module.azuread_service_principals
+    azuread_application = module.azuread_applications_v1
+    azuread_group       = module.azuread_groups
+    azuread_service_principal = module.azuread_service_principals
     credentials       = module.azuread_credentials
-    vnets             = module.networking
+    virtual_network = module.networking
     public_dns        = module.dns_zones
     private_dns       = module.private_dns
-    managed_identities  = module.managed_identities
-    keyvaults           = module.keyvaults
-    storage_accounts    = module.storage_accounts
+    user_assigned_identity  = module.managed_identities
+    key_vault           = module.keyvaults
+    storage_account    = module.storage_accounts
   }
   client_config = local.client_config
   depends_on = [
