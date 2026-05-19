@@ -1,20 +1,20 @@
 {
-  "schema_version": 2026050501,
+  "schema_version": 2026051801,
   "title": "Producer Essentials Blob",
   "description": "Validates blobs written by consumer. schema_version uses YYYYMMDDNN format bumped only on breaking changes. Additive changes (new resource types, new fields) do not fail validation of existing consumers.",
   "schema_version_policy": "Bump schema_version only on breaking changes: renaming/removing a resource type key, changing the type or structure of an existing field, or removing a field consumers may reference. Run scripts/generate_contract.py after any change here.",
 
   "resource_types": {
-    "azuread_applications": [
+    "azuread_application": [
         "application_id",
         "display_name",
         "object_id"
     ],
-    "azuread_groups": [
+    "azuread_group": [
         "display_name",
         "object_id"
     ],
-    "azuread_service_principals": [
+    "azuread_service_principal": [
         "application_id",
         "display_name",
         "object_id",
@@ -28,12 +28,12 @@
       "client_secret_secret_name",
       "client_secret_secret_versionless_id"
     ],
-    "keyvaults": [
+    "key_vault": [
         "id",
         "name",
         "vault_uri"
     ],
-    "managed_identities": [
+    "user_assigned_identity": [
         "client_id",
         "id",
         "name",
@@ -50,12 +50,12 @@
         "name",
         "resource_group_name"
     ],
-    "storage_accounts": [
+    "storage_account": [
         "id",
         "name",
         "primary_blob_endpoint"
     ],
-    "vnets": [
+    "virtual_network": [
         "address_space",
         "id",
         "name",

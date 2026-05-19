@@ -1,4 +1,4 @@
-locals { 
+locals {
   json_schema = jsondecode(file("${path.module}/schema/definition.json"))
 }
 

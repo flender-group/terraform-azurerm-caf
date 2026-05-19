@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "contract.json",
+  "title": "Producer Essentials Blob",
+  "description": "Validates blobs written by producer. x-schema-version uses YYYYMMDDNN format bumped only on breaking changes. Additive changes (new resource types, new fields) do not fail validation of existing consumers.",
+  "x-schema-version": 2026051801,
+  "x-schema-version-policy": "Bump x-schema-version (and schema_version in schema/definition.json) only on breaking changes: renaming/removing a resource type key, changing the type or structure of an existing field, or removing a field consumers may reference. Run scripts/schema-snapshot.py --update after any field change.",
+  "type": "object",
+  "required": [
+    "schema_version"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "description": "YYYYMMDDNN bumped only on breaking structural changes."
+    },
+    "credentials": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "client_id_secret_key_vault_id": {
+            "type": "string"
+          },
+          "client_id_secret_name": {
+            "type": "string"
+          },
+          "client_id_secret_versionless_id": {
+            "type": "string"
+          },
+          "client_secret_secret_key_vault_id": {
+            "type": "string"
+          },
+          "client_secret_secret_name": {
+            "type": "string"
+          },
+          "client_secret_secret_versionless_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "private_dns": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "resource_group_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "public_dns": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "resource_group_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "azuread_application": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "application_id": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "object_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "azuread_group": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "display_name": {
+            "type": "string"
+          },
+          "object_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "azuread_service_principal": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "application_id": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "object_id": {
+            "type": "string"
+          },
+          "rbac_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "key_vault": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "vault_uri": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "storage_account": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "primary_blob_endpoint": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "user_assigned_identity": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "client_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "principal_id": {
+            "type": "string"
+          },
+          "rbac_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "virtual_network": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "address_space": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subnets": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
