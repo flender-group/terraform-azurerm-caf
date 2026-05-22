@@ -60,6 +60,16 @@
         "id",
         "name",
         "subnets"
+    ],
+    "monitor_action_group": [
+        "id",
+        "name",
+        "short_name"
+    ],
+    "log_analytics_workspace": [
+        "id",
+        "name",
+        "workspace_id"
     ]
   }
 }
