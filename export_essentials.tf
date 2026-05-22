@@ -14,6 +14,8 @@ module "export_essentials" {
     user_assigned_identity  = module.managed_identities
     key_vault           = module.keyvaults
     storage_account    = module.storage_accounts
+    log_analytics_workspace = module.log_analytics
+    monitor_action_group = module.monitor_action_groups
   }
   client_config = local.client_config
   depends_on = [
