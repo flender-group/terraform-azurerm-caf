@@ -38,7 +38,7 @@ variable "diagnostics" {
 
 variable "endpoint_objects" {
   description = "map of possible endpoint objects from caf"
-  type        = map(any)
+  type        = any
 }
 
 
