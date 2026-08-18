@@ -6,6 +6,7 @@ module "azuread_app_role_assignments" {
   client_config              = local.client_config
   settings                   = each.value
   azuread_groups             = local.combined_objects_azuread_groups
+  azuread_dynamic_groups     = local.combined_objects_azuread_dynamic_groups
   azuread_users              = local.combined_objects_azuread_users
   azuread_service_principals = local.combined_objects_azuread_service_principals
 }
