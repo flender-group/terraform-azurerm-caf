@@ -11,3 +11,4 @@ variable "azuread_groups" {}
 variable "azuread_users" {}
 variable "azuread_service_principals" {}
 variable "managed_identities" {}
+variable "azuread_dynamic_groups" {}
