@@ -8,6 +8,7 @@ module "azuread_app_role_assignments" {
   azuread_groups             = local.combined_objects_azuread_groups
   azuread_users              = local.combined_objects_azuread_users
   azuread_service_principals = local.combined_objects_azuread_service_principals
+  managed_identities         = local.combined_objects_managed_identities
 }
 
 output "azuread_app_role_assignments" {

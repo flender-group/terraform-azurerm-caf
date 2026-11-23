@@ -10,3 +10,4 @@ variable "resource_object_id" {
 variable "azuread_groups" {}
 variable "azuread_users" {}
 variable "azuread_service_principals" {}
+variable "managed_identities" {}
